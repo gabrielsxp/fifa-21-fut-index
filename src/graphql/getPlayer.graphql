@@ -1,0 +1,69 @@
+query getPlayer ($id: Int!) {
+  players (where: { player_id: $id }) {
+    player_id
+    photo {
+      url
+    }
+    name
+    age
+    height
+    weight
+    preferred_foot
+    defensive_awareness
+    weak_foot
+    international_reputation
+    skill_moves
+    work_rate
+    real_face
+    overall
+    potential
+    crossing
+    finishing
+    heading_accuracy
+    short_passing
+    volleys
+    dribbling
+    curve
+    f_k_accuracy
+    long_passing
+    ball_control
+    acceleration
+    sprint_speed
+    agility
+    reactions
+    balance
+    shot_power
+    jumping
+    stamina
+    strength
+    long_shots
+    aggression
+    interceptions
+    positioning
+    vision
+    penalties
+    composure
+    marking
+    standing_tackle
+    sliding_tackle
+    g_k_diving
+    g_k_kicking
+    g_k_positioning
+    g_k_reflexes
+    best_position
+    best_overall_rating
+    position
+    nation {
+      name
+      image {
+        url
+      }
+    }
+    team {
+      name
+      image {
+        url
+      }
+    }
+  }
+}

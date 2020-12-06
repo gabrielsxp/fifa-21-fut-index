@@ -78,9 +78,9 @@ export type UserPermissionsPasswordPayload = {
 
 export type Nation = {
   __typename?: 'Nation'
-  id: Scalars['ID']
-  created_at: Scalars['DateTime']
-  updated_at: Scalars['DateTime']
+  id?: Scalars['ID']
+  created_at?: Scalars['DateTime']
+  updated_at?: Scalars['DateTime']
   name?: Maybe<Scalars['String']>
   image?: Maybe<UploadFile>
   slug?: Maybe<Scalars['String']>
@@ -211,9 +211,9 @@ export type DeleteNationPayload = {
 
 export type Player = {
   __typename?: 'Player'
-  id: Scalars['ID']
-  created_at: Scalars['DateTime']
-  updated_at: Scalars['DateTime']
+  id?: Scalars['ID']
+  created_at?: Scalars['DateTime']
+  updated_at?: Scalars['DateTime']
   player_id?: Maybe<Scalars['Long']>
   name?: Maybe<Scalars['String']>
   position?: Maybe<Scalars['String']>
@@ -1140,9 +1140,9 @@ export type DeletePlayerPayload = {
 
 export type Team = {
   __typename?: 'Team'
-  id: Scalars['ID']
-  created_at: Scalars['DateTime']
-  updated_at: Scalars['DateTime']
+  id?: Scalars['ID']
+  created_at?: Scalars['DateTime']
+  updated_at?: Scalars['DateTime']
   name?: Maybe<Scalars['String']>
   image?: Maybe<UploadFile>
   slug?: Maybe<Scalars['String']>
@@ -1273,22 +1273,22 @@ export type DeleteTeamPayload = {
 
 export type UploadFile = {
   __typename?: 'UploadFile'
-  id: Scalars['ID']
-  created_at: Scalars['DateTime']
-  updated_at: Scalars['DateTime']
-  name: Scalars['String']
+  id?: Scalars['ID']
+  created_at?: Scalars['DateTime']
+  updated_at?: Scalars['DateTime']
+  name?: Scalars['String']
   alternativeText?: Maybe<Scalars['String']>
   caption?: Maybe<Scalars['String']>
   width?: Maybe<Scalars['Int']>
   height?: Maybe<Scalars['Int']>
   formats?: Maybe<Scalars['JSON']>
-  hash: Scalars['String']
+  hash?: Scalars['String']
   ext?: Maybe<Scalars['String']>
-  mime: Scalars['String']
-  size: Scalars['Float']
-  url: Scalars['String']
+  mime?: Scalars['String']
+  size?: Scalars['Float']
+  url?: Scalars['String']
   previewUrl?: Maybe<Scalars['String']>
-  provider: Scalars['String']
+  provider?: Scalars['String']
   provider_metadata?: Maybe<Scalars['JSON']>
   related?: Maybe<Array<Maybe<Morph>>>
 }

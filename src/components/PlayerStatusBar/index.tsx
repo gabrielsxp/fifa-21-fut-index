@@ -33,7 +33,7 @@ const PlayerStatusBar = ({
       )}
       <S.Wrapper>
         <S.Fill
-          aria-label="Player Stat Badge"
+          aria-label="Player Stat Bar"
           type={getPlayerStatType(stat)}
           stat={stat}
         />

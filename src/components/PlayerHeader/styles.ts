@@ -6,7 +6,7 @@ export const Wrapper = styled.header`
   ${({ theme }) => css`
     position: relative;
     width: 100%;
-    height: 40rem;
+    min-height: 30rem;
 
     & > div {
       position: relative;
@@ -60,8 +60,7 @@ export const Grid = styled.div`
     align-items: center;
     grid-gap: ${theme.grid.gutter};
     ${media.lessThan('medium')`
-      display: flex;
-      flex-direction: column;
+      grid-template-columns: repeat(1, 1fr);
     `}
   `}
 `
@@ -219,4 +218,8 @@ export const ChartWrapper = styled.div`
   & tspan {
     fill: white;
   }
+
+  ${media.lessThan('medium')`
+    width: 34rem;
+  `}
 `

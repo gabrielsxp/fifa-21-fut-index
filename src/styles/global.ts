@@ -7,14 +7,14 @@ const GlobalStyles = createGlobalStyle`
     font-style: normal;
     font-weight: 400;
     src: local(''),
-        url('/fonts/rubik-v11-latin-regular.woff2') format('woff2')
+        url('/fonts/rubik-v11-latin-regular.woff2') format('woff2');
   }
   @font-face {
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 700;
     src: local(''),
-        url('/fonts/rubik-v11-latin-700.woff2') format('woff2')
+        url('/fonts/rubik-v11-latin-700.woff2') format('woff2');
   }
   * {
     margin: 0;

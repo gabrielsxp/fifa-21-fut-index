@@ -26,6 +26,7 @@ const typeColorModifier = (type: string) => {
 export const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 33rem;
 `
 
 export const Wrapper = styled.div`
@@ -45,7 +46,7 @@ export const Wrapper = styled.div`
 export const Fill = styled.div<FillProps>`
   ${({ stat, type }) => css`
     position: relative;
-    left: -${100}%;
+    left: -${stat}%;
     width: ${stat}%;
     max-width: 100%;
     border-radius: 2.5rem;
@@ -72,7 +73,7 @@ export const Label = styled.div<Pick<PlayerStatusBarProps, 'scheme'>>`
     align-items: center;
     font-weight: bold;
     width: 100%;
-    color: ${scheme === 'light' ? theme.colors.white : theme.colors.black};
+    color: ${scheme === 'light' ? theme.colors.white : darken(0.4, '#e3e1e1')};
     margin-bottom: ${theme.font.sizes.xsmall};
   `}
 `

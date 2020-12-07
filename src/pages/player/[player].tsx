@@ -1,13 +1,19 @@
+import * as S from 'templates/PlayerTemplate/styles'
 import withApollo from 'utils/withApollo'
 import PlayerHeader from 'components/PlayerHeader'
 import PlayerAttributes from 'components/PlayerAttrbutes'
-import { useGetPlayerQuery } from 'generated/graphql'
-import { Container } from 'components/Container'
-import { useRouter } from 'next/router'
 import PlayerTemplate from 'templates/PlayerTemplate'
 import PlayerCard from 'components/PlayerCard'
+import Loading from 'components/Loading'
+import Error from 'components/Error'
+import PlayerCardCarousel from 'components/PlayerCardCarousel'
+import SectionBackground from 'components/SectionBackground'
+import { Container } from 'components/Container'
+import { useRouter } from 'next/router'
 import { playerCardDataFormatted } from 'utils/playerMethods'
-import * as S from 'templates/PlayerTemplate/styles'
+import { useEffect } from 'react'
+import { Player as PlayerProps } from 'generated/graphql'
+import { useGetPlayerQuery, usePlayerSearchLazyQuery } from 'generated/graphql'
 
 const Player = () => {
   const router = useRouter()
@@ -24,12 +30,35 @@ const Player = () => {
       id: idParam
     }
   })
+  const [
+    search,
+    { called, loading: loadingSimilarPlayers, data: similarPlayers }
+  ] = usePlayerSearchLazyQuery({
+    fetchPolicy: 'no-cache',
+    variables: {
+      where: {
+        best_position:
+          data?.players && data?.players[0]
+            ? data.players[0].best_position
+            : 'ST',
+        player_id_ne: id
+      },
+      sort: 'overall:DESC',
+      limit: 10
+    }
+  })
+  useEffect(() => {
+    console.log('busquei similares')
+    search()
+  }, [id, search])
+
   if (loading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
   if (error) {
-    return <div>Error fetching players data</div>
+    return <Error />
   }
+
   return (
     <PlayerTemplate>
       {data && data.players && data.players[0] && (
@@ -41,6 +70,18 @@ const Player = () => {
               <PlayerAttributes player={data.players[0]} />
             </S.Grid>
           </Container>
+          <SectionBackground>
+            <Container>
+              {similarPlayers && similarPlayers?.players && (
+                <PlayerCardCarousel
+                  title="Similar Players"
+                  color="dark"
+                  subtitle={`Players that also plays as ${data?.players[0]?.best_position}`}
+                  items={similarPlayers.players as PlayerProps[]}
+                />
+              )}
+            </Container>
+          </SectionBackground>
         </>
       )}
     </PlayerTemplate>

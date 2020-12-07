@@ -24,7 +24,7 @@ const PlayerStatusBar = ({
   scheme = 'light'
 }: PlayerStatusBarProps) => {
   return (
-    <S.MainWrapper>
+    <S.MainWrapper aria-label="status bar">
       {!!label && (
         <S.Label aria-label="Player Stat Name" scheme={scheme}>
           <span>{label}</span>

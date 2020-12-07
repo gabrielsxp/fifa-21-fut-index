@@ -20,7 +20,7 @@ const getPlayerStatType = (stat: number) => {
 
 const PlayerStat = ({ stat, label, scheme = 'light' }: PlayerStatProps) => {
   return (
-    <S.MainWrapper>
+    <S.MainWrapper aria-label="status badge">
       {!!label && (
         <S.Label aria-label="Player Stat Name" scheme={scheme}>
           {label}

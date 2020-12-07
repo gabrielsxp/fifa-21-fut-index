@@ -47,7 +47,7 @@ describe('<PlayerStatusBar />', () => {
 
     expect(screen.getByLabelText(/Player Stat Bar/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/Player Stat Name/i)).toHaveStyle({
-      color: '#030517'
+      color: '#807878'
     })
   })
 })

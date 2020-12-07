@@ -12,6 +12,11 @@ export type ExpandedAccumulatorProps = {
   weighted?: number
 }
 
+export type ChartRawData = {
+  values: number[]
+  weights: number[]
+}
+
 export type DataChartProps = {
   subject?: string
   A?: number
@@ -52,6 +57,12 @@ const defendingAttr = [
   'sliding_tackle'
 ]
 const physicAttr = ['jumping', 'stamina', 'strength', 'aggression']
+const gkDivingAttr = ['g_k_diving']
+const gkHandlingAttr = ['g_k_handling']
+const gkKickingAttr = ['g_k_kicking']
+const gkReflexesAttr = ['g_k_reflexes']
+const gkSpeedAttr = ['acceleration', 'sprint_speed']
+const gkPositioningAttr = ['g_k_positioning']
 /*
   Receive a set of attribute section values and make a weighted average over it
 */
@@ -132,6 +143,7 @@ export const playerRadarChartDataConstructor = (player: PlayerProps) => {
   const dribblingAttrWeights = [2, 1, 1, 2, 2, 2]
   const defendingAttrWeights = [2, 1, 1.5, 2, 2]
   const physicAttrWeights = [2, 3, 2, 2]
+  const gkSpeedAttrWeights = [1, 1]
 
   const labels = {
     Pace: {
@@ -160,20 +172,52 @@ export const playerRadarChartDataConstructor = (player: PlayerProps) => {
     }
   }
 
-  return Object.keys(labels).reduce((acc: DataChartProps[], key: string) => {
-    let obj: DataChartProps = {}
-    const value = weightedAverage(
-      labels[key as keyof typeof labels].values,
-      labels[key as keyof typeof labels].weights
-    )
-    obj = {
-      subject: `${key} (${value})`,
-      A: value,
-      fullMark: 99
+  const gkLabels = {
+    Diving: {
+      values: getPlayerAttributesSubset(player, gkDivingAttr),
+      weights: [1]
+    },
+    Handling: {
+      values: getPlayerAttributesSubset(player, gkHandlingAttr),
+      weights: [1]
+    },
+    Kicking: {
+      values: getPlayerAttributesSubset(player, gkKickingAttr),
+      weights: [1]
+    },
+    Reflexes: {
+      values: getPlayerAttributesSubset(player, gkReflexesAttr),
+      weights: [1]
+    },
+    Speed: {
+      values: getPlayerAttributesSubset(player, gkSpeedAttr),
+      weights: gkSpeedAttrWeights
+    },
+    Positioning: {
+      values: getPlayerAttributesSubset(player, gkPositioningAttr),
+      weights: [1]
     }
-    acc = acc.concat(obj)
-    return acc
-  }, [])
+  }
+
+  return Object.keys(player?.best_position === 'GK' ? gkLabels : labels).reduce(
+    (acc: DataChartProps[], key: string) => {
+      let obj: DataChartProps = {}
+      const l: { [x: string]: ChartRawData } =
+        player?.best_position === 'GK' ? gkLabels : labels
+      const value = weightedAverage(
+        l[key as keyof typeof l].values,
+        l[key as keyof typeof l].weights
+      )
+      obj = {
+        subject: `${key} (${value})`,
+        A: value,
+        fullMark: 99
+      }
+      acc = acc.concat(obj)
+      return acc
+    },
+    []
+  )
 }
 
 /**
@@ -189,7 +233,13 @@ export const generatePlayerFields = (player: PlayerProps) => {
     ...passingAttrs,
     ...dribblingAttr,
     ...defendingAttr,
-    ...physicAttr
+    ...physicAttr,
+    ...gkDivingAttr,
+    ...gkHandlingAttr,
+    ...gkKickingAttr,
+    ...gkReflexesAttr,
+    ...gkSpeedAttr,
+    ...gkPositioningAttr
   ]
 
   const allAttrLabels = [
@@ -242,8 +292,87 @@ export const generatePlayerFields = (player: PlayerProps) => {
     {}
   )
 
+  const gkAttributes: { [x: string]: ExpandedAccumulatorProps } = {
+    Diving: {
+      attrs: [
+        {
+          label: 'Diving',
+          field: 'g_k_diving',
+          stat: player?.g_k_diving ?? 0,
+          category: 'Diving'
+        }
+      ],
+      weighted: player?.g_k_diving ?? 0
+    },
+    Handling: {
+      attrs: [
+        {
+          label: 'Handling',
+          field: 'g_k_handling',
+          stat: player?.g_k_handling ?? 0,
+          category: 'Handling'
+        }
+      ],
+      weighted: player?.g_k_handling ?? 0
+    },
+    Kicking: {
+      attrs: [
+        {
+          label: 'Kicking',
+          field: 'g_k_kicking',
+          stat: player?.g_k_kicking ?? 0,
+          category: 'Kicking'
+        }
+      ],
+      weighted: player?.g_k_kicking ?? 0
+    },
+    Reflexes: {
+      attrs: [
+        {
+          label: 'Reflexes',
+          field: 'g_k_reflexes',
+          stat: player?.g_k_reflexes ?? 0,
+          category: 'Reflexes'
+        }
+      ],
+      weighted: player?.g_k_reflexes ?? 0
+    },
+    Speed: {
+      attrs: [
+        {
+          label: 'Acceleration',
+          field: 'Acceleration',
+          stat: player?.acceleration ?? 0,
+          category: 'Acceleration'
+        },
+        {
+          label: 'Speed',
+          field: 'sprint_speed',
+          stat: player?.sprint_speed ?? 0,
+          category: 'Speed'
+        }
+      ],
+      weighted: weightedAverage(
+        [player?.acceleration ?? 0, player?.sprint_speed ?? 0],
+        [1, 1]
+      )
+    },
+    Positioning: {
+      attrs: [
+        {
+          label: 'Positioning',
+          field: 'g_k_positioning',
+          stat: player?.g_k_positioning ?? 0,
+          category: 'Positioning'
+        }
+      ],
+      weighted: player?.g_k_positioning ?? 0
+    }
+  }
+
   return {
     topAttributes: attributes.slice(0, 6),
+    gkAttributes: gkAttributes,
     attributes: attributesOrganized
   }
 }
@@ -251,13 +380,17 @@ export const generatePlayerFields = (player: PlayerProps) => {
 /**
  * Helper function to return a card rarirty based on players overall
  */
-const getCardRarity = (overall: number) => {
+const getCardRarity = (overall: number, work_rate: string) => {
   if (overall < 65) {
     return 'bronze'
   } else if (overall < 75) {
     return 'silver'
   } else {
-    return 'gold'
+    if (work_rate === 'N/A/ N/A') {
+      return 'legend'
+    } else {
+      return 'gold'
+    }
   }
 }
 
@@ -267,8 +400,8 @@ const getCardRarity = (overall: number) => {
  */
 const formatReducePlayerName = (name: string) => {
   if (name.includes('.')) {
-    return name
-  } else {
+    return name.split('.')[1]
+  } else if (name.includes(' ')) {
     const names = name.split(' ')
     if (name === 'Cristiano Ronaldo') {
       return names[1]
@@ -277,6 +410,8 @@ const formatReducePlayerName = (name: string) => {
     } else {
       return names[1]
     }
+  } else {
+    return name
   }
 }
 
@@ -287,10 +422,11 @@ const formatReducePlayerName = (name: string) => {
 export const playerCardDataFormatted = (player: PlayerProps) => {
   const weightedValues = playerRadarChartDataConstructor(player)
   return {
-    quality: getCardRarity(player?.overall ?? 0),
+    playerId: player?.player_id ?? 0,
+    quality: getCardRarity(player?.overall ?? 0, player?.work_rate ?? ''),
     playerImage: player?.photo?.url,
     playerOverall: player?.overall ?? 0,
-    playerPosition: player?.position ?? '',
+    playerPosition: player?.best_position ?? '',
     playerName: formatReducePlayerName(player?.name ?? ''),
     playerNationImage: player?.nation?.image?.url,
     playerTeamImage: player?.team?.image?.url,
@@ -299,6 +435,7 @@ export const playerCardDataFormatted = (player: PlayerProps) => {
     playerPassing: weightedValues[2].A,
     playerDribbling: weightedValues[3].A,
     playerDefending: weightedValues[4].A,
-    playerPhysicality: weightedValues[5].A
+    playerPhysicality: weightedValues[5].A,
+    isGK: player?.best_position === 'GK'
   }
 }

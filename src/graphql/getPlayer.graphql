@@ -5,6 +5,7 @@ query getPlayer ($id: Int!) {
       url
     }
     name
+    jersey_number
     age
     height
     weight
@@ -48,11 +49,13 @@ query getPlayer ($id: Int!) {
     sliding_tackle
     g_k_diving
     g_k_kicking
+    g_k_handling
     g_k_positioning
     g_k_reflexes
     best_position
     best_overall_rating
     position
+    wage
     nation {
       name
       image {

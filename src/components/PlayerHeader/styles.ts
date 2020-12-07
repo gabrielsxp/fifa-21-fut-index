@@ -5,6 +5,7 @@ import media from 'styled-media-query'
 export const Wrapper = styled.header`
   ${({ theme }) => css`
     position: relative;
+    padding-top: 7rem;
     width: 100%;
     min-height: 30rem;
 
@@ -89,7 +90,7 @@ export const PlayerNameContainer = styled.div`
 export const PlayerJerseyNumber = styled.div`
   ${({ theme }) => css`
     position: absolute;
-    top: -27%;
+    top: -25%;
     letter-spacing: -1rem;
     font-size: 8rem;
     right: 0;
@@ -115,8 +116,8 @@ export const SectionHeading = styled.h2`
 `
 
 export const Image = styled.img`
-  width: 6rem;
-  height: 6rem;
+  width: 7rem;
+  height: 7rem;
   position: relative;
   z-index: 11;
 `
@@ -199,9 +200,7 @@ export const PlayerMainInfoWrapper = styled.div`
   flex-direction: column;
 `
 export const PlayerMainDataContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 0.1rem;
+  display: flex;
   margin-top: 0.5rem;
 `
 export const TopStatsContainer = styled.div`

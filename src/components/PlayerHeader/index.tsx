@@ -8,7 +8,7 @@ import { Check as CheckIcon } from '@styled-icons/boxicons-regular/Check'
 import { Close as CloseIcon } from '@styled-icons/evaicons-solid/Close'
 import { Player as PlayerProps } from 'generated/graphql'
 
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Radar,
   RadarChart,
@@ -32,7 +32,7 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
   const [chartData, setChartData] = useState<DataChartProps[]>([])
   const [playerTopAttrs, setPlayerTopAttrs] = useState<AccumulatorProps[]>([])
 
-  useEffect(() => {
+  useMemo(() => {
     const chartData: DataChartProps[] = playerRadarChartDataConstructor(player)
     const { topAttributes } = generatePlayerFields(player)
     setChartData(chartData)
@@ -46,12 +46,14 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
         <S.Grid>
           <S.PlayerMainStatsContainer>
             <S.PlayerNameContainer>
-              <S.PlayerJerseyNumber aria-label="player jersey">
-                {player?.jersey_number}
-              </S.PlayerJerseyNumber>
+              {player?.jersey_number && (
+                <S.PlayerJerseyNumber aria-label="player jersey">
+                  {player?.jersey_number}
+                </S.PlayerJerseyNumber>
+              )}
               <S.Image
                 alt={`${player?.name} player image`}
-                src={player?.photo?.url}
+                src={player?.photo?.url ?? '/img/notfound_player.webp'}
               ></S.Image>
               <S.PlayerMainInfoWrapper>
                 <S.Heading aria-label="player name">{player?.name}</S.Heading>
@@ -59,7 +61,9 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
                   <S.PlayerMainDataWrapper>
                     <S.MainDataImage
                       alt={`${player?.nation?.name} nation image`}
-                      src={player?.nation?.image?.url}
+                      src={
+                        player?.nation?.image?.url ?? '/img/notfound_club.webp'
+                      }
                     />
                     <S.MainData aria-label="nation name">
                       {player?.nation?.name}
@@ -68,7 +72,9 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
                   <S.PlayerMainDataWrapper>
                     <S.MainDataImage
                       alt={`${player?.team?.name} team image`}
-                      src={player?.team?.image?.url}
+                      src={
+                        player?.team?.image?.url ?? '/img/notfound_club.webp'
+                      }
                     />
                     <S.MainData aria-label="team name">
                       {player?.team?.name}
@@ -102,7 +108,7 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
                 </S.IconWrapperMini>
                 <span>Skill Moves</span>
               </S.CommomStat>
-              <S.CommomStat aria-label="player internation reputation">
+              <S.CommomStat aria-label="player international reputation">
                 {player?.international_reputation}
                 <S.IconWrapperMini>
                   <StarIcon />
@@ -170,6 +176,8 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
                     stroke="#c2ff1f"
                     fill="#c2ff1f"
                     fillOpacity={0.5}
+                    width={400}
+                    height={300}
                   />
                 </RadarChart>
               </ResponsiveContainer>

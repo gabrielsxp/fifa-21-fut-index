@@ -19,8 +19,8 @@ const cardFontVariantModifier: {
     font-size: ${variant === 'small' ? '1.4rem' : '3.2rem'};
     line-height: ${variant === 'small' ? '1.6rem' : '3.4rem'};
     text-align: center;
-    letter-spacing: ${variant === 'small' ? '-0.1rem' : '-0.3rem'};
-    font-weight: ${variant === 'small' ? 'bold' : 'normal'};
+    letter-spacing: ${variant === 'small' ? '-0.1rem' : '-0.1rem'};
+    font-weight: ${variant === 'small' ? 'bold' : '600'};
   `,
   position: (variant: string) => css`
     font-size: ${variant === 'small' ? '1rem' : '1.4rem'};
@@ -52,7 +52,12 @@ const cardFontVariantModifier: {
 export const Wrapper = styled.div<Pick<PlayerCardProps, 'variant'>>`
   position: relative;
   ${({ variant }) => css`
+    cursor: pointer;
     ${cardVariantModifier[variant as keyof typeof cardVariantModifier]};
+    transition: all 0.3s ease;
+    &:hover {
+      transform: scale(1.1);
+    }
   `}
 `
 
@@ -66,7 +71,7 @@ export const CardImage = styled.img`
 export const CardTop = styled.div<Pick<PlayerCardProps, 'variant'>>`
   ${({ variant }) => css`
     position: absolute;
-    top: ${variant === 'small' ? '2rem' : '4rem'};
+    top: ${variant === 'small' ? '2rem' : '4.2rem'};
     left: ${variant === 'small' ? '1.2rem' : '4rem'};
     width: 100%;
     display: grid;
@@ -79,7 +84,7 @@ export const CardTop = styled.div<Pick<PlayerCardProps, 'variant'>>`
 export const CardBottom = styled.div<Pick<PlayerCardProps, 'variant'>>`
   ${({ variant }) => css`
     position: absolute;
-    top: ${variant === 'small' ? '7.6rem' : '16rem'};
+    top: ${variant === 'small' ? '7.6rem' : '16.5rem'};
     left: ${variant === 'small' ? '0rem' : '5rem'};
     width: 100%;
     max-width: 12rem;

@@ -135,7 +135,10 @@ export const mapAttributeToCategory = (attr: string) => {
  * @param player
  * @return dataset DataChartProps[]
  */
-export const playerRadarChartDataConstructor = (player: PlayerProps) => {
+export const playerRadarChartDataConstructor = (
+  player: PlayerProps,
+  isGK: boolean
+) => {
   //categories weights
   const paceAttrWeights = [1, 1.5]
   const shootingAttrWeights = [3, 4, 2, 3, 1, 1]
@@ -199,11 +202,10 @@ export const playerRadarChartDataConstructor = (player: PlayerProps) => {
     }
   }
 
-  return Object.keys(player?.best_position === 'GK' ? gkLabels : labels).reduce(
+  return Object.keys(isGK ? gkLabels : labels).reduce(
     (acc: DataChartProps[], key: string) => {
       let obj: DataChartProps = {}
-      const l: { [x: string]: ChartRawData } =
-        player?.best_position === 'GK' ? gkLabels : labels
+      const l: { [x: string]: ChartRawData } = isGK ? gkLabels : labels
       const value = weightedAverage(
         l[key as keyof typeof l].values,
         l[key as keyof typeof l].weights
@@ -267,7 +269,7 @@ export const generatePlayerFields = (player: PlayerProps) => {
       return acc
     }, [])
     .sort((a, b) => b.stat - a.stat)
-  const weightedValues = playerRadarChartDataConstructor(player)
+  const weightedValues = playerRadarChartDataConstructor(player, false)
   // attributes divided by category
   const attributesOrganized = allAttrLabels.reduce(
     (
@@ -420,7 +422,10 @@ const formatReducePlayerName = (name: string) => {
  * @param player Given a player object, returns all players card attributes formatted
  */
 export const playerCardDataFormatted = (player: PlayerProps) => {
-  const weightedValues = playerRadarChartDataConstructor(player)
+  const weightedValues = playerRadarChartDataConstructor(
+    player,
+    player?.best_position === 'GK'
+  )
   return {
     playerId: player?.player_id ?? 0,
     quality: getCardRarity(player?.overall ?? 0, player?.work_rate ?? ''),

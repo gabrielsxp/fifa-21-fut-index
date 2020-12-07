@@ -33,7 +33,10 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
   const [playerTopAttrs, setPlayerTopAttrs] = useState<AccumulatorProps[]>([])
 
   useMemo(() => {
-    const chartData: DataChartProps[] = playerRadarChartDataConstructor(player)
+    const chartData: DataChartProps[] = playerRadarChartDataConstructor(
+      player,
+      player?.best_position === 'GK'
+    )
     const { topAttributes } = generatePlayerFields(player)
     setChartData(chartData)
     setPlayerTopAttrs(topAttributes)

@@ -1286,7 +1286,7 @@ export type UploadFile = {
   ext?: Maybe<Scalars['String']>
   mime?: Scalars['String']
   size?: Scalars['Float']
-  url?: Scalars['String']
+  url: Scalars['String']
   previewUrl?: Maybe<Scalars['String']>
   provider?: Scalars['String']
   provider_metadata?: Maybe<Scalars['JSON']>
@@ -2263,11 +2263,215 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
+export type NationPageQueryVariables = Exact<{
+  slug: Scalars['String']
+}>
+
+export type NationPageQuery = { __typename?: 'Query' } & {
+  nations?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Nation' } & Pick<Nation, 'id' | 'name'> & {
+            image?: Maybe<
+              { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
+            >
+            players?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: 'Player' } & Pick<
+                    Player,
+                    | 'player_id'
+                    | 'name'
+                    | 'overall'
+                    | 'potential'
+                    | 'position'
+                    | 'best_position'
+                  > & {
+                      photo?: Maybe<
+                        { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
+                      >
+                      nation?: Maybe<
+                        { __typename?: 'Nation' } & {
+                          image?: Maybe<
+                            { __typename?: 'UploadFile' } & Pick<
+                              UploadFile,
+                              'url'
+                            >
+                          >
+                        }
+                      >
+                      team?: Maybe<
+                        { __typename?: 'Team' } & {
+                          image?: Maybe<
+                            { __typename?: 'UploadFile' } & Pick<
+                              UploadFile,
+                              'url'
+                            >
+                          >
+                        }
+                      >
+                    }
+                >
+              >
+            >
+          }
+      >
+    >
+  >
+}
+
 export type GetPlayerQueryVariables = Exact<{
   id: Scalars['Int']
 }>
 
 export type GetPlayerQuery = { __typename?: 'Query' } & {
+  players?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Player' } & Pick<
+          Player,
+          | 'player_id'
+          | 'name'
+          | 'jersey_number'
+          | 'age'
+          | 'height'
+          | 'weight'
+          | 'preferred_foot'
+          | 'defensive_awareness'
+          | 'weak_foot'
+          | 'international_reputation'
+          | 'skill_moves'
+          | 'work_rate'
+          | 'real_face'
+          | 'overall'
+          | 'potential'
+          | 'crossing'
+          | 'finishing'
+          | 'heading_accuracy'
+          | 'short_passing'
+          | 'volleys'
+          | 'dribbling'
+          | 'curve'
+          | 'f_k_accuracy'
+          | 'long_passing'
+          | 'ball_control'
+          | 'acceleration'
+          | 'sprint_speed'
+          | 'agility'
+          | 'reactions'
+          | 'balance'
+          | 'shot_power'
+          | 'jumping'
+          | 'stamina'
+          | 'strength'
+          | 'long_shots'
+          | 'aggression'
+          | 'interceptions'
+          | 'positioning'
+          | 'vision'
+          | 'penalties'
+          | 'composure'
+          | 'marking'
+          | 'standing_tackle'
+          | 'sliding_tackle'
+          | 'g_k_diving'
+          | 'g_k_kicking'
+          | 'g_k_handling'
+          | 'g_k_positioning'
+          | 'g_k_reflexes'
+          | 'best_position'
+          | 'best_overall_rating'
+          | 'position'
+          | 'wage'
+        > & {
+            photo?: Maybe<
+              { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
+            >
+            nation?: Maybe<
+              { __typename?: 'Nation' } & Pick<Nation, 'name' | 'slug'> & {
+                  image?: Maybe<
+                    { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
+                  >
+                }
+            >
+            team?: Maybe<
+              { __typename?: 'Team' } & Pick<Team, 'name' | 'slug'> & {
+                  image?: Maybe<
+                    { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
+                  >
+                }
+            >
+          }
+      >
+    >
+  >
+}
+
+export type TeamPageQueryVariables = Exact<{
+  slug: Scalars['String']
+}>
+
+export type TeamPageQuery = { __typename?: 'Query' } & {
+  teams?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Team' } & Pick<Team, 'id' | 'name'> & {
+            image?: Maybe<
+              { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
+            >
+            players?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: 'Player' } & Pick<
+                    Player,
+                    | 'player_id'
+                    | 'name'
+                    | 'overall'
+                    | 'potential'
+                    | 'position'
+                    | 'best_position'
+                  > & {
+                      photo?: Maybe<
+                        { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
+                      >
+                      nation?: Maybe<
+                        { __typename?: 'Nation' } & {
+                          image?: Maybe<
+                            { __typename?: 'UploadFile' } & Pick<
+                              UploadFile,
+                              'url'
+                            >
+                          >
+                        }
+                      >
+                      team?: Maybe<
+                        { __typename?: 'Team' } & {
+                          image?: Maybe<
+                            { __typename?: 'UploadFile' } & Pick<
+                              UploadFile,
+                              'url'
+                            >
+                          >
+                        }
+                      >
+                    }
+                >
+              >
+            >
+          }
+      >
+    >
+  >
+}
+
+export type PlayerSearchQueryVariables = Exact<{
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+}>
+
+export type PlayerSearchQuery = { __typename?: 'Query' } & {
   players?: Maybe<
     Array<
       Maybe<
@@ -2350,95 +2554,85 @@ export type GetPlayerQuery = { __typename?: 'Query' } & {
   >
 }
 
-export type PlayerSearchQueryVariables = Exact<{
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-}>
-
-export type PlayerSearchQuery = { __typename?: 'Query' } & {
-  players?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Player' } & Pick<
-          Player,
-          | 'player_id'
-          | 'name'
-          | 'age'
-          | 'height'
-          | 'weight'
-          | 'preferred_foot'
-          | 'defensive_awareness'
-          | 'weak_foot'
-          | 'international_reputation'
-          | 'skill_moves'
-          | 'work_rate'
-          | 'real_face'
-          | 'overall'
-          | 'potential'
-          | 'crossing'
-          | 'finishing'
-          | 'heading_accuracy'
-          | 'short_passing'
-          | 'volleys'
-          | 'dribbling'
-          | 'curve'
-          | 'f_k_accuracy'
-          | 'long_passing'
-          | 'ball_control'
-          | 'acceleration'
-          | 'sprint_speed'
-          | 'agility'
-          | 'reactions'
-          | 'balance'
-          | 'shot_power'
-          | 'jumping'
-          | 'stamina'
-          | 'strength'
-          | 'long_shots'
-          | 'aggression'
-          | 'interceptions'
-          | 'positioning'
-          | 'vision'
-          | 'penalties'
-          | 'composure'
-          | 'marking'
-          | 'standing_tackle'
-          | 'sliding_tackle'
-          | 'g_k_diving'
-          | 'g_k_kicking'
-          | 'g_k_handling'
-          | 'g_k_positioning'
-          | 'g_k_reflexes'
-          | 'best_position'
-          | 'best_overall_rating'
-          | 'position'
-          | 'wage'
-        > & {
-            photo?: Maybe<
-              { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
-            >
-            nation?: Maybe<
-              { __typename?: 'Nation' } & Pick<Nation, 'name'> & {
-                  image?: Maybe<
-                    { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
-                  >
-                }
-            >
-            team?: Maybe<
-              { __typename?: 'Team' } & Pick<Team, 'name'> & {
-                  image?: Maybe<
-                    { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
-                  >
-                }
-            >
+export const NationPageDocument = gql`
+  query nationPage($slug: String!) {
+    nations(where: { slug: $slug }) {
+      id
+      name
+      image {
+        url
+      }
+      players {
+        player_id
+        name
+        overall
+        potential
+        position
+        best_position
+        photo {
+          url
+        }
+        nation {
+          image {
+            url
           }
-      >
-    >
-  >
-}
+        }
+        team {
+          image {
+            url
+          }
+        }
+      }
+    }
+  }
+`
 
+/**
+ * __useNationPageQuery__
+ *
+ * To run a query within a React component, call `useNationPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNationPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNationPageQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useNationPageQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    NationPageQuery,
+    NationPageQueryVariables
+  >
+) {
+  return Apollo.useQuery<NationPageQuery, NationPageQueryVariables>(
+    NationPageDocument,
+    baseOptions
+  )
+}
+export function useNationPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NationPageQuery,
+    NationPageQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<NationPageQuery, NationPageQueryVariables>(
+    NationPageDocument,
+    baseOptions
+  )
+}
+export type NationPageQueryHookResult = ReturnType<typeof useNationPageQuery>
+export type NationPageLazyQueryHookResult = ReturnType<
+  typeof useNationPageLazyQuery
+>
+export type NationPageQueryResult = Apollo.QueryResult<
+  NationPageQuery,
+  NationPageQueryVariables
+>
 export const GetPlayerDocument = gql`
   query getPlayer($id: Int!) {
     players(where: { player_id: $id }) {
@@ -2497,14 +2691,17 @@ export const GetPlayerDocument = gql`
       best_position
       best_overall_rating
       position
+      wage
       nation {
         name
+        slug
         image {
           url
         }
       }
       team {
         name
+        slug
         image {
           url
         }
@@ -2556,6 +2753,82 @@ export type GetPlayerQueryResult = Apollo.QueryResult<
   GetPlayerQuery,
   GetPlayerQueryVariables
 >
+export const TeamPageDocument = gql`
+  query teamPage($slug: String!) {
+    teams(where: { slug: $slug }) {
+      id
+      name
+      image {
+        url
+      }
+      players {
+        player_id
+        name
+        overall
+        potential
+        position
+        best_position
+        photo {
+          url
+        }
+        nation {
+          image {
+            url
+          }
+        }
+        team {
+          image {
+            url
+          }
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useTeamPageQuery__
+ *
+ * To run a query within a React component, call `useTeamPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTeamPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTeamPageQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useTeamPageQuery(
+  baseOptions: Apollo.QueryHookOptions<TeamPageQuery, TeamPageQueryVariables>
+) {
+  return Apollo.useQuery<TeamPageQuery, TeamPageQueryVariables>(
+    TeamPageDocument,
+    baseOptions
+  )
+}
+export function useTeamPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TeamPageQuery,
+    TeamPageQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<TeamPageQuery, TeamPageQueryVariables>(
+    TeamPageDocument,
+    baseOptions
+  )
+}
+export type TeamPageQueryHookResult = ReturnType<typeof useTeamPageQuery>
+export type TeamPageLazyQueryHookResult = ReturnType<
+  typeof useTeamPageLazyQuery
+>
+export type TeamPageQueryResult = Apollo.QueryResult<
+  TeamPageQuery,
+  TeamPageQueryVariables
+>
 export const PlayerSearchDocument = gql`
   query playerSearch($sort: String, $limit: Int, $start: Int, $where: JSON) {
     players(sort: $sort, limit: $limit, start: $start, where: $where) {
@@ -2564,6 +2837,7 @@ export const PlayerSearchDocument = gql`
         url
       }
       name
+      jersey_number
       age
       height
       weight
@@ -2613,6 +2887,7 @@ export const PlayerSearchDocument = gql`
       best_position
       best_overall_rating
       position
+      wage
       nation {
         name
         image {

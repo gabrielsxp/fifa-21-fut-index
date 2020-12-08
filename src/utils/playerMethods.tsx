@@ -382,7 +382,7 @@ export const generatePlayerFields = (player: PlayerProps) => {
 /**
  * Helper function to return a card rarirty based on players overall
  */
-const getCardRarity = (overall: number, work_rate: string) => {
+export const getCardRarity = (overall: number, work_rate: string) => {
   if (overall < 65) {
     return 'bronze'
   } else if (overall < 75) {
@@ -402,17 +402,22 @@ const getCardRarity = (overall: number, work_rate: string) => {
  */
 const formatReducePlayerName = (name: string) => {
   if (name.includes('.')) {
+    if (name === 'Vinícius Jr.') {
+      return 'Vinícius Jr.'
+    }
     return name.split('.')[1]
   } else if (name.includes(' ')) {
     const names = name.split(' ')
+    console.log(names)
     if (name === 'Cristiano Ronaldo') {
       return names[1]
     } else if (name.match('Neymar')) {
       return names[0]
     } else {
-      return names[1]
+      return names[0][0] + `. ${names[1]}`
     }
   } else {
+    console.log('name: ', name)
     return name
   }
 }

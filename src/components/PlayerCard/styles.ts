@@ -76,7 +76,7 @@ export const CardTop = styled.div<Pick<PlayerCardProps, 'variant'>>`
     width: 100%;
     display: grid;
     grid-template-columns: ${variant === 'small'
-      ? '2rem calc(100% - 2rem)'
+      ? '2.3rem calc(100% - 2.3rem)'
       : '3.5rem calc(100% - 3.5rem)'};
   `}
 `
@@ -212,7 +212,7 @@ export const PlayerImage = styled.img<Pick<PlayerCardProps, 'variant'>>`
     position: relative;
     width: 100%;
     height: auto;
-    max-width: ${variant === 'small' ? '5.5rem' : '12rem'};
-    bottom: ${variant === 'small' ? '0rem' : '0.1rem'};
+    max-width: ${variant === 'small' ? '4.5rem' : '12rem'};
+    bottom: ${variant === 'small' ? '-1.2rem' : '0.1rem'};
   `}
 `

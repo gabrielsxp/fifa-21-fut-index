@@ -51,6 +51,9 @@ export const Wrapper = styled.header`
       height: 100%;
       z-index: -1;
     }
+    .recharts-legend-item-text {
+      color: ${theme.colors.white};
+    }
   `}
 `
 
@@ -63,6 +66,9 @@ export const Grid = styled.div`
     ${media.lessThan('medium')`
       grid-template-columns: repeat(1, 1fr);
     `}
+    > .recharts-legend-item-text {
+      color: white;
+    }
   `}
 `
 
@@ -85,6 +91,9 @@ export const PlayerNameContainer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  > :first-child {
+    margin-right: 1rem;
+  }
 `
 
 export const PlayerJerseyNumber = styled.div`
@@ -101,7 +110,7 @@ export const PlayerJerseyNumber = styled.div`
 
 export const Heading = styled.h1`
   ${({ theme }) => css`
-    font-size: ${theme.font.sizes.xxlarge};
+    font-size: ${theme.font.sizes.large};
     color: ${theme.colors.secondary};
     margin-right: ${theme.spacings.small};
   `}
@@ -112,12 +121,14 @@ export const SectionHeading = styled.h2`
     font-size: ${theme.font.sizes.large};
     color: ${theme.colors.white};
     margin: ${theme.spacings.xsmall} 0;
+    text-align: center;
+    font-weight: bold;
   `}
 `
 
 export const Image = styled.img`
-  width: 7rem;
-  height: 7rem;
+  width: 4rem;
+  height: auto;
   position: relative;
   z-index: 11;
 `
@@ -126,6 +137,10 @@ export const Line = styled.hr`
     border: none;
     border-top: 0.1rem solid ${theme.colors.secondary};
     width: 100%;
+
+    ${media.lessThan(`medium`)`
+      max-width: 30rem;
+    `}
   `}
 `
 export const CommomStat = styled.div`
@@ -148,7 +163,7 @@ export const CommomStat = styled.div`
 export const CommonStatsContainer = styled.div`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
     margin-top: ${theme.spacings.xsmall};
 
@@ -193,8 +208,6 @@ export const MainData = styled.p`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.xsmall};
     color: ${theme.colors.white};
-    text-decoration: underline;
-    cursor: pointer;
   `}
 `
 export const PlayerMainInfoWrapper = styled.div`
@@ -214,13 +227,13 @@ export const TopStatsContainer = styled.div`
   `}
 `
 export const ChartWrapper = styled.div`
-  width: 40rem;
+  width: 50rem;
   height: 30rem;
   & tspan {
     fill: white;
   }
 
   ${media.lessThan('medium')`
-    width: 34rem;
+    width: 36rem;
   `}
 `

@@ -7,6 +7,7 @@ import { Star as StarIcon } from '@styled-icons/evaicons-solid/Star'
 import { Check as CheckIcon } from '@styled-icons/boxicons-regular/Check'
 import { Close as CloseIcon } from '@styled-icons/evaicons-solid/Close'
 import { Player as PlayerProps } from 'generated/graphql'
+import Link from 'next/link'
 
 import { useMemo, useState } from 'react'
 import {
@@ -68,9 +69,11 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
                         player?.nation?.image?.url ?? '/img/notfound_club.webp'
                       }
                     />
-                    <S.MainData aria-label="nation name">
-                      {player?.nation?.name}
-                    </S.MainData>
+                    <Link href={`/nation/${player?.nation?.slug}`}>
+                      <S.MainData aria-label="nation name">
+                        {player?.nation?.name}
+                      </S.MainData>
+                    </Link>
                   </S.PlayerMainDataWrapper>
                   <S.PlayerMainDataWrapper>
                     <S.MainDataImage
@@ -79,9 +82,11 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
                         player?.team?.image?.url ?? '/img/notfound_club.webp'
                       }
                     />
-                    <S.MainData aria-label="team name">
-                      {player?.team?.name}
-                    </S.MainData>
+                    <Link href={`/team/${player?.team?.slug}`}>
+                      <S.MainData aria-label="team name">
+                        {player?.team?.name}
+                      </S.MainData>
+                    </Link>
                   </S.PlayerMainDataWrapper>
                 </S.PlayerMainDataContainer>
               </S.PlayerMainInfoWrapper>

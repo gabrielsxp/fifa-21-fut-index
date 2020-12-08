@@ -1,11 +1,14 @@
 import styled, { css } from 'styled-components'
 import { darken, rgba } from 'polished'
+import { SectionBackgroundWrapper } from '.'
 
-export const Wrapper = styled.header`
-  ${({ theme }) => css`
+export const Wrapper = styled.header<
+  Pick<SectionBackgroundWrapper, 'reduced' | 'onTop'>
+>`
+  ${({ theme, reduced, onTop }) => css`
     position: relative;
     width: 100%;
-    min-height: 50rem;
+    min-height: ${reduced ? '25rem' : '50rem'};
     padding: 2rem 0;
 
     & > div {
@@ -19,12 +22,12 @@ export const Wrapper = styled.header`
 
     & > span {
       position: absolute;
-      top: 0;
+      top: ${onTop ? '-7rem' : '0'};
       left: 0;
       background-color: ${rgba(darken(0.5, theme.colors.secondary), 0.7)};
       background-size: cover;
       width: 100%;
-      height: 100%;
+      height: ${onTop ? 'calc(100% + 7rem)' : '100%'};
       z-index: 1;
     }
     &:before {

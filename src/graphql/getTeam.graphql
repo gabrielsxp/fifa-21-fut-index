@@ -1,0 +1,30 @@
+query teamPage ($slug: String!) {
+  teams (where: { slug: $slug }) {
+    id
+    name
+    image {
+      url
+    }
+    players {
+      player_id
+      name
+      overall
+      potential
+      position
+      best_position
+      photo {
+        url
+      }
+      nation {
+        image {
+          url
+        }
+      }
+      team {
+        image {
+          url
+        }
+      }
+    }
+  }
+}

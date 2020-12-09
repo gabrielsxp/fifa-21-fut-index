@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import theme from 'styles/theme'
 import { ChakraProvider } from '@chakra-ui/react'
 import GlobalStyles from 'styles/global'
+import { storeWrapper } from 'redux-local'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -30,4 +31,4 @@ function App({ Component, pageProps }: AppProps) {
   )
 }
 
-export default App
+export default storeWrapper.withRedux(App)

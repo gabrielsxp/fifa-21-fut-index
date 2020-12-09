@@ -449,3 +449,50 @@ export const playerCardDataFormatted = (player: PlayerProps) => {
     isGK: player?.best_position === 'GK'
   }
 }
+
+type LocalComparisonObject = {
+  values: number[]
+  identifier: number
+}
+
+/**
+ * Given a list of players, return a matrix of 0 or 1s indicating
+ * if the badge is highligted or not
+ * @param players
+ */
+export const comparePlayers = (players: PlayerProps[]) => {
+  const attributes = players.reduce(
+    (acc: LocalComparisonObject[], player: PlayerProps, index: number) => {
+      const weightedValues = playerRadarChartDataConstructor(
+        player,
+        player?.best_position === 'GK'
+      )
+      const comparedObject: LocalComparisonObject = {
+        identifier: index,
+        values: weightedValues.map((value) => value.A ?? 0)
+      }
+      acc = acc.concat(comparedObject)
+
+      return acc
+    },
+    []
+  )
+  console.log(attributes)
+  const matrix = []
+  for (let i = 0; i < 6; i++) {
+    const a_ = { id: attributes[0].identifier, value: attributes[0].values[i] },
+      b_ = { id: attributes[1].identifier, value: attributes[1].values[i] },
+      c_ = { id: attributes[2].identifier, value: attributes[2].values[i] }
+    const values = [a_, b_, c_].sort((a, b) => b.value - a.value)
+    matrix.push(
+      values
+        .map((value, index) => ({
+          id: value.id,
+          matrixValue: index === 0 ? 1 : 0
+        }))
+        .sort((a, b) => a.id - b.id)
+        .map((matrixColumn) => matrixColumn.matrixValue)
+    )
+  }
+  console.log(matrix)
+}

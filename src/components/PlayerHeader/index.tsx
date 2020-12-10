@@ -7,7 +7,10 @@ import { Star as StarIcon } from '@styled-icons/evaicons-solid/Star'
 import { Check as CheckIcon } from '@styled-icons/boxicons-regular/Check'
 import { Close as CloseIcon } from '@styled-icons/evaicons-solid/Close'
 import { Player as PlayerProps } from 'generated/graphql'
+import { Button } from '@chakra-ui/react'
 import Link from 'next/link'
+import ComparePlayers from 'components/ComparePlayers'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { useMemo, useState } from 'react'
 import {
@@ -24,6 +27,7 @@ import {
   generatePlayerFields,
   playerRadarChartDataConstructor
 } from 'utils/playerMethods'
+import { InitialStateProps } from 'redux-local/reducers/players'
 
 export type PlayerHeaderProps = {
   player: PlayerProps
@@ -32,6 +36,11 @@ export type PlayerHeaderProps = {
 const PlayerHeader = ({ player }: PlayerHeaderProps) => {
   const [chartData, setChartData] = useState<DataChartProps[]>([])
   const [playerTopAttrs, setPlayerTopAttrs] = useState<AccumulatorProps[]>([])
+  const [comparePlayersOpen, setComparePlayersOpen] = useState<boolean>(false)
+  const dispatch = useDispatch()
+  const comparedPlayers = useSelector(
+    (state: InitialStateProps) => state.players
+  )
 
   useMemo(() => {
     const chartData: DataChartProps[] = playerRadarChartDataConstructor(
@@ -43,8 +52,26 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
     setPlayerTopAttrs(topAttributes)
   }, [player])
 
+  const addPlayerToComparison = (player: PlayerProps) => {
+    if (!comparedPlayers.find((p) => p?.player_id === player?.player_id)) {
+      dispatch({
+        type: 'SET_PLAYERS',
+        payload: {
+          players: [player]
+        }
+      })
+    } else {
+      alert('This player is already on the compared players list')
+    }
+    setComparePlayersOpen(true)
+  }
+
   return (
     <S.Wrapper>
+      <ComparePlayers
+        controlFunction={setComparePlayersOpen}
+        visible={comparePlayersOpen}
+      ></ComparePlayers>
       <span></span>
       <Container>
         <S.Grid>
@@ -146,6 +173,16 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
                     </S.IconWrapper>
                   )}
                 </span>
+              </S.CommomStat>
+              <S.CommomStat>
+                <Button
+                  onClick={() => addPlayerToComparison(player)}
+                  size="lg"
+                  colorScheme="white"
+                  variant="outline"
+                >
+                  Compare
+                </Button>
               </S.CommomStat>
             </S.CommonStatsContainer>
           </S.PlayerMainStatsContainer>

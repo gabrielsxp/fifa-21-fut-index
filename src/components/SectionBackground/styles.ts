@@ -3,9 +3,9 @@ import { darken, rgba } from 'polished'
 import { SectionBackgroundWrapper } from '.'
 
 export const Wrapper = styled.header<
-  Pick<SectionBackgroundWrapper, 'reduced' | 'onTop'>
+  Pick<SectionBackgroundWrapper, 'reduced' | 'onTop' | 'color'>
 >`
-  ${({ theme, reduced, onTop }) => css`
+  ${({ theme, reduced, onTop, color }) => css`
     position: relative;
     width: 100%;
     min-height: ${reduced ? '25rem' : '50rem'};
@@ -24,7 +24,7 @@ export const Wrapper = styled.header<
       position: absolute;
       top: ${onTop ? '-7rem' : '0'};
       left: 0;
-      background-color: ${rgba(darken(0.5, theme.colors.secondary), 0.7)};
+      background-color: ${rgba(darken(0.5, theme.colors[color!]), 0.7)};
       background-size: cover;
       width: 100%;
       height: ${onTop ? 'calc(100% + 7rem)' : '100%'};

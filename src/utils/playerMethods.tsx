@@ -408,7 +408,6 @@ const formatReducePlayerName = (name: string) => {
     return name.split('.')[1]
   } else if (name.includes(' ')) {
     const names = name.split(' ')
-    console.log(names)
     if (name === 'Cristiano Ronaldo') {
       return names[1]
     } else if (name.match('Neymar')) {
@@ -417,7 +416,6 @@ const formatReducePlayerName = (name: string) => {
       return names[0][0] + `. ${names[1]}`
     }
   } else {
-    console.log('name: ', name)
     return name
   }
 }
@@ -455,6 +453,16 @@ type LocalComparisonObject = {
   identifier: number
 }
 
+type ComparisonObjectProps = {
+  id: number
+  value: number
+}
+
+type MatrixRowProps = {
+  id: number
+  matrixValue: number
+}
+
 /**
  * Given a list of players, return a matrix of 0 or 1s indicating
  * if the badge is highligted or not
@@ -477,22 +485,70 @@ export const comparePlayers = (players: PlayerProps[]) => {
     },
     []
   )
-  console.log(attributes)
+  console.log('attributes:', attributes)
   const matrix = []
+  let comparedPlayers: ComparisonObjectProps[] = []
   for (let i = 0; i < 6; i++) {
-    const a_ = { id: attributes[0].identifier, value: attributes[0].values[i] },
-      b_ = { id: attributes[1].identifier, value: attributes[1].values[i] },
-      c_ = { id: attributes[2].identifier, value: attributes[2].values[i] }
-    const values = [a_, b_, c_].sort((a, b) => b.value - a.value)
+    comparedPlayers = attributes.reduce(
+      (acc: ComparisonObjectProps[], _, index: number) => {
+        const obj: ComparisonObjectProps = {
+          id: attributes[index].identifier,
+          value: attributes[index].values[i]
+        }
+        acc = acc.concat(obj)
+        return acc
+      },
+      []
+    )
+    console.log('compared players:', comparedPlayers)
+    const values = comparedPlayers.sort(
+      (a: ComparisonObjectProps, b: ComparisonObjectProps) => b.value - a.value
+    )
     matrix.push(
       values
-        .map((value, index) => ({
+        .map((value: ComparisonObjectProps, index: number) => ({
           id: value.id,
           matrixValue: index === 0 ? 1 : 0
         }))
-        .sort((a, b) => a.id - b.id)
-        .map((matrixColumn) => matrixColumn.matrixValue)
+        .sort((a: MatrixRowProps, b: MatrixRowProps) => a.id - b.id)
+        .map((matrixColumn: MatrixRowProps) => matrixColumn.matrixValue)
     )
   }
-  console.log(matrix)
+  console.log('matrix', matrix)
+  return matrix
+}
+
+export const getRandomPlayersQuery = (amount: number) => {
+  const positions = [
+    'GK',
+    'RB',
+    'CB',
+    'LB',
+    'CM',
+    'LM',
+    'RM',
+    'CAM',
+    'ST',
+    'LW',
+    'RW'
+  ]
+  const overall = [
+    { min: 40, max: 50 },
+    { min: 50, max: 60 },
+    { min: 70, max: 80 },
+    { min: 80, max: 99 }
+  ]
+
+  const pos = Math.floor(Math.random() * positions.length)
+  const over = Math.floor(Math.random() * overall.length)
+
+  return {
+    where: {
+      best_position_contains: positions[pos],
+      overall_gte: overall[over].min,
+      overall_lte: overall[over].max
+    },
+    limit: amount,
+    sort: 'overall:DESC'
+  }
 }

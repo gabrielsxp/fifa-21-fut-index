@@ -1,32 +1,77 @@
 import * as S from './styles'
 import { SearchAlt as SearchIcon } from '@styled-icons/boxicons-regular/SearchAlt'
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { Container } from 'components/Container'
 import { Close as CloseIcon } from '@styled-icons/evaicons-solid/Close'
-import { NavbarProps } from 'components/Navbar'
 import { Formik, Form } from 'formik'
 import InputField from 'components/InputField'
 import { Button } from '@chakra-ui/react'
 import { usePlayerSearchLazyQuery } from 'generated/graphql'
 import PlayerCard from 'components/PlayerCard'
 import { playerCardDataFormatted } from 'utils/playerMethods'
+import { useDispatch, useSelector } from 'react-redux'
+import { Player as PlayerProps } from 'generated/graphql'
+import { InitialStateProps } from 'redux-local/reducers/players'
 
-const Search = ({ variant = false }: NavbarProps) => {
+export type SearchCompareProps = {
+  searchVisibilityControl: Dispatch<SetStateAction<boolean>>
+  visible: boolean
+}
+
+const SearchCompare = ({
+  visible,
+  searchVisibilityControl
+}: SearchCompareProps) => {
+  const dispatch = useDispatch()
+  const comparedPlayers = useSelector(
+    (state: InitialStateProps) => state.players
+  )
+  const controlPlayerAdd = (player: PlayerProps) => {
+    if (!comparedPlayers.find((p) => p?.player_id === player?.player_id)) {
+      if (player?.best_position === 'GK') {
+        if (!comparedPlayers.every((p) => p?.best_position === 'GK')) {
+          return alert(
+            'You cannot add a goalkeeper on a list with line field players !'
+          )
+        }
+      }
+      if (player?.best_position !== 'GK') {
+        if (comparedPlayers.some((p) => p?.best_position === 'GK')) {
+          return alert(
+            'You cannot add a line field player on a list with goalkeepers !'
+          )
+        }
+      }
+      const c = Object.assign([], comparedPlayers)
+      c.push(player)
+      console.log('players: ', c)
+      dispatch({
+        type: 'SET_PLAYERS',
+        payload: {
+          players: c
+        }
+      })
+      searchVisibilityControl(false)
+    } else {
+      alert('This player is already on the compared players list')
+    }
+  }
   const [search, { called, loading, data }] = usePlayerSearchLazyQuery({
     fetchPolicy: 'no-cache'
   })
-  const [isSearchOpened, setIsSearchOpened] = useState<boolean>(false)
+
   return (
     <S.Wrapper>
       <S.SearchOverlay
         data-testid="search-container"
-        aria-hidden={isSearchOpened}
-        visible={isSearchOpened}
+        aria-hidden={visible}
+        visible={visible}
       >
         <Container>
           <S.IconWrapper
             fixed
-            onClick={() => setIsSearchOpened(!isSearchOpened)}
+            visible={visible}
+            onClick={() => searchVisibilityControl(!visible)}
           >
             <CloseIcon aria-label="search close icon" />
           </S.IconWrapper>
@@ -36,10 +81,6 @@ const Search = ({ variant = false }: NavbarProps) => {
               const { name } = values
               if (name === '') {
                 return setErrors({ name: 'You must fill this field' })
-              } else if (name.length <= 3) {
-                return setErrors({
-                  name: 'The players name must have at least 3 characters'
-                })
               }
               search({
                 variables: {
@@ -74,11 +115,12 @@ const Search = ({ variant = false }: NavbarProps) => {
               data?.players?.map((card, index) => {
                 return (
                   card && (
-                    <PlayerCard
-                      {...playerCardDataFormatted(card)}
-                      closeSearchFunction={setIsSearchOpened}
-                      key={index}
-                    />
+                    <S.CardWrapper onClick={() => controlPlayerAdd(card)}>
+                      <PlayerCard
+                        {...playerCardDataFormatted(card)}
+                        key={index}
+                      />
+                    </S.CardWrapper>
                   )
                 )
               })}
@@ -88,14 +130,11 @@ const Search = ({ variant = false }: NavbarProps) => {
           </S.PostsContainer>
         </Container>
       </S.SearchOverlay>
-      <S.IconWrapper
-        variant={variant}
-        onClick={() => setIsSearchOpened(!isSearchOpened)}
-      >
+      <S.IconWrapper onClick={() => searchVisibilityControl(!visible)}>
         <SearchIcon aria-label="search icon" />
       </S.IconWrapper>
     </S.Wrapper>
   )
 }
 
-export default Search
+export default SearchCompare

@@ -14,8 +14,10 @@ import { playerCardDataFormatted } from 'utils/playerMethods'
 import { useEffect } from 'react'
 import { Player as PlayerProps } from 'generated/graphql'
 import { useGetPlayerQuery, usePlayerSearchLazyQuery } from 'generated/graphql'
+import { useDispatch } from 'react-redux'
 
 const Player = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const { player: id } = router.query
   let idParam = 0
@@ -30,10 +32,7 @@ const Player = () => {
       id: idParam
     }
   })
-  const [
-    search,
-    { called, loading: loadingSimilarPlayers, data: similarPlayers }
-  ] = usePlayerSearchLazyQuery({
+  const [search, { data: similarPlayers }] = usePlayerSearchLazyQuery({
     fetchPolicy: 'no-cache',
     variables: {
       where: {
@@ -47,8 +46,13 @@ const Player = () => {
       limit: 10
     }
   })
+  if (similarPlayers && similarPlayers?.players) {
+    dispatch({
+      type: 'SET_SIMILAR_PLAYERS',
+      payload: { players: similarPlayers.players }
+    })
+  }
   useEffect(() => {
-    console.log('busquei similares')
     search()
   }, [id, search])
 

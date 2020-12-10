@@ -4,6 +4,7 @@ export type PlayerStatProps = {
   stat: number
   label?: string
   scheme?: 'light' | 'dark'
+  transparency?: number
 }
 
 const getPlayerStatType = (stat: number) => {
@@ -18,7 +19,12 @@ const getPlayerStatType = (stat: number) => {
   }
 }
 
-const PlayerStat = ({ stat, label, scheme = 'light' }: PlayerStatProps) => {
+const PlayerStat = ({
+  stat,
+  label,
+  scheme = 'light',
+  transparency = 1
+}: PlayerStatProps) => {
   return (
     <S.MainWrapper aria-label="status badge">
       {!!label && (
@@ -26,7 +32,11 @@ const PlayerStat = ({ stat, label, scheme = 'light' }: PlayerStatProps) => {
           {label}
         </S.Label>
       )}
-      <S.Wrapper aria-label="Player Stat Badge" type={getPlayerStatType(stat)}>
+      <S.Wrapper
+        transparency={transparency}
+        aria-label="Player Stat Badge"
+        type={getPlayerStatType(stat)}
+      >
         {stat}
       </S.Wrapper>
     </S.MainWrapper>

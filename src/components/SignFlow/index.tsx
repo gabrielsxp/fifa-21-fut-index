@@ -310,6 +310,26 @@ const SignFlow = ({
 
                       localStorage.setItem('token', JSON.stringify(token))
                       localStorage.setItem('user', JSON.stringify(userData))
+                      setUserId(userData.id)
+                      try {
+                        getFavorites({
+                          variables: {
+                            where: {
+                              user: {
+                                id: parseInt(userData.id)
+                              }
+                            }
+                          }
+                        })
+                      } catch (error) {
+                        console.log('favorite error: ', error)
+                        setApolloErrors(
+                          Object.assign(
+                            [],
+                            getApolloErrors(error.graphQLErrors)
+                          )
+                        )
+                      }
                       controlFunction(false)
                     }
                   } catch (error) {

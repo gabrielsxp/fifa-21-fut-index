@@ -15,6 +15,8 @@ import { useEffect } from 'react'
 import { Player as PlayerProps } from 'generated/graphql'
 import { useGetPlayerQuery, usePlayerSearchLazyQuery } from 'generated/graphql'
 import { useDispatch } from 'react-redux'
+import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 
 const Player = () => {
   const dispatch = useDispatch()
@@ -64,33 +66,77 @@ const Player = () => {
   }
 
   return (
-    <PlayerTemplate>
-      {data && data.players && data.players[0] && (
-        <>
-          <PlayerHeader player={data.players[0] as PlayerProps} />
-          <Container>
-            <S.Grid>
-              <PlayerCard
-                {...playerCardDataFormatted(data.players[0] as PlayerProps)}
-              />
-              <PlayerAttributes player={data.players[0] as PlayerProps} />
-            </S.Grid>
-          </Container>
-          <SectionBackground>
-            <Container>
-              {similarPlayers && similarPlayers?.players && (
-                <PlayerCardCarousel
-                  title="Similar Players"
-                  color="dark"
-                  subtitle={`Players that also plays as ${data?.players[0]?.best_position}`}
-                  items={similarPlayers.players as PlayerProps[]}
-                />
-              )}
-            </Container>
-          </SectionBackground>
-        </>
+    <>
+      {data && data?.players && data?.players[0] && (
+        <Head>
+          <title>Fifa Stats Player - {data?.players[0]?.name}</title>
+          <meta
+            name="description"
+            content={`${data?.players[0]?.name} - Overall: ${data?.players[0]?.overall} | Potential: ${data?.players[0]?.potential}`}
+          />
+          <link
+            rel="shortcut icon"
+            href={
+              data?.players[0]?.photo?.url
+                ? data?.players[0]?.photo?.url.replace('http://', 'https://')
+                : data?.players[0]?.photo?.url
+            }
+          />
+          <link
+            rel="apple-touch-icon"
+            href={
+              data?.players[0]?.photo?.url
+                ? data?.players[0]?.photo?.url.replace('http://', 'https://')
+                : data?.players[0]?.photo?.url
+            }
+          />
+        </Head>
       )}
-    </PlayerTemplate>
+      {data && data?.players && data?.players[0] && (
+        <NextSeo>
+          title={`${data.players[0]?.name}`} description=
+          {`Overall: ${data?.players[0]?.overall} | Potential: ${data?.players[0]?.potential}`}{' '}
+          canonical=
+          {`https://kofastools.com/player/${data.players[0]?.player_id}`}{' '}
+          openGraph=
+          {{
+            url: `https://kofastools.com/player/${data.players[0]?.player_id}`,
+            title: `${data.players[0]?.name}`,
+            description: `Overall: ${data?.players[0]?.overall} | Potential: ${data?.players[0]?.potential}`,
+            images: [{ url: data.players[0]?.photo?.url }],
+            site_name: `Fifa Stats`,
+            locale: 'en_US'
+          }}
+        </NextSeo>
+      )}
+      <PlayerTemplate>
+        {data && data.players && data.players[0] && (
+          <>
+            <PlayerHeader player={data.players[0] as PlayerProps} />
+            <Container>
+              <S.Grid>
+                <PlayerCard
+                  {...playerCardDataFormatted(data.players[0] as PlayerProps)}
+                />
+                <PlayerAttributes player={data.players[0] as PlayerProps} />
+              </S.Grid>
+            </Container>
+            <SectionBackground>
+              <Container>
+                {similarPlayers && similarPlayers?.players && (
+                  <PlayerCardCarousel
+                    title="Similar Players"
+                    color="dark"
+                    subtitle={`Players that also plays as ${data?.players[0]?.best_position}`}
+                    items={similarPlayers.players as PlayerProps[]}
+                  />
+                )}
+              </Container>
+            </SectionBackground>
+          </>
+        )}
+      </PlayerTemplate>
+    </>
   )
 }
 

@@ -33,6 +33,7 @@
     "next-apollo": "^5.0.4",
     "next-pwa": "^3.1.5",
     "next-redux-wrapper": "^6.0.2",
+    "next-seo": "^4.17.0",
     "polished": "^4.0.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",

@@ -11,9 +11,9 @@ function App({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={theme}>
       <ChakraProvider>
         <Head>
-          <title>React Avançado - Boilerplate</title>
-          <link rel="shortcut icon" href="/img/icon-512.png" />
-          <link rel="apple-touch-icon" href="/img/icon-512.png" />
+          <title>Fifa Stats</title>
+          <link rel="shortcut icon" href="/img/logo2.png" />
+          <link rel="apple-touch-icon" href="/img/logo2.png" />
           <link rel="manifest" href="/manifest.json" />
           <meta
             name="viewport"
@@ -21,7 +21,7 @@ function App({ Component, pageProps }: AppProps) {
           />
           <meta
             name="description"
-            content="A simple project starter to work with TypeScript, React, NextJS and Styled Components"
+            content="Players, Teams and Teams stats from Fifa 21"
           />
         </Head>
         <GlobalStyles />

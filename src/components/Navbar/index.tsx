@@ -115,9 +115,14 @@ const Navbar = ({ variant = false }: NavbarProps) => {
             </Link>
             {user && (
               <>
-                <Link href="/posts" passHref>
+                <Link href="/user/favorites" passHref>
                   <S.NavLink aria-hidden={isMobileMenuOpen} dark>
                     My Favorites
+                  </S.NavLink>
+                </Link>
+                <Link href="/user/comparisons" passHref>
+                  <S.NavLink aria-hidden={isMobileMenuOpen} dark>
+                    My Comparisons
                   </S.NavLink>
                 </Link>
                 <S.NavLink

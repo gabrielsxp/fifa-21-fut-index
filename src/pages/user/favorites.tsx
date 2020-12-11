@@ -21,7 +21,7 @@ const Favorites = () => {
       },
       sort: 'updated_at:DESC'
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'no-cache'
   })
   if (loading) {
     return <Loading />

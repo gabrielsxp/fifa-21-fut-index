@@ -4,7 +4,7 @@ export const Wrapper = styled.main`
   ${({ theme }) => css`
     width: 100vw;
     height: 100vh;
-    background-color: ${theme.colors.primary};
+    background-color: #011627;
     display: flex;
     justify-content: center;
     align-items: center;

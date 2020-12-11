@@ -1,6 +1,7 @@
 query playerSearch ($sort: String, $limit: Int, $start: Int, $where: JSON){
   players (sort: $sort, limit: $limit, start: $start, where: $where) {
     player_id
+    id
     photo {
       url
     }

@@ -1,0 +1,7 @@
+mutation createComparison($players: [ID]!, $user: ID!) {
+  createComparison(input: { data: { players: $players, user: $user } }) {
+    comparison {
+      id
+    }
+  }
+}

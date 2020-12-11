@@ -1,0 +1,7 @@
+mutation updateFavorite ($id: ID!, $players: [ID]!) {
+  updateFavorite (input: { data: { players: $players }, where: { id: $id } }) {
+    favorite {
+      id
+    }
+  }
+}

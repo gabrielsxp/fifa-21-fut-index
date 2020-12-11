@@ -3,7 +3,7 @@ import media from 'styled-media-query'
 
 export const Wrapper = styled.img`
   width: auto;
-  height: 7rem;
+  height: 6rem;
 
   ${media.lessThan('medium')`
     height: 4rem;

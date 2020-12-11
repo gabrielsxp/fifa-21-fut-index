@@ -25,6 +25,9 @@ export const Logo = styled.h1`
     z-index: 10;
     line-height: 9rem;
   `}
+  ${media.lessThan('medium')`
+    font-size: 5rem;
+  `}
 `
 export const SearchInputsContainer = styled.div`
   ${({ theme }) => css`
@@ -34,7 +37,8 @@ export const SearchInputsContainer = styled.div`
     grid-gap: ${theme.grid.gutter};
     margin-bottom: ${theme.spacings.small};
     ${media.greaterThan('medium')`
-      grid-template-columns: 90% 10%;
+      padding: ${theme.spacings.small};
+      grid-template-columns: 80% 20%;
     `}
   `}
 `
@@ -51,7 +55,16 @@ export const PlayersContainer = styled.div`
   overflow: hidden;
   align-content: flex-start;
   grid-gap: 1rem;
-  ${media.greaterThan('medium')`
+  @media screen and (min-width: 400px) and (max-width: 599px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  ${media.between('small', 'medium')`
+    grid-template-columns: repeat(4, 1fr);
+  `}
+  ${media.between('medium', 'large')`
+    grid-template-columns: repeat(6, 1fr);
+  `}
+  ${media.greaterThan('large')`
     grid-template-columns: repeat(12, 1fr);
   `}
 `

@@ -11,7 +11,7 @@ import PlayerCard from 'components/PlayerCard'
 import { playerCardDataFormatted } from 'utils/playerMethods'
 import { useDispatch, useSelector } from 'react-redux'
 import { Player as PlayerProps } from 'generated/graphql'
-import { InitialStateProps } from 'redux-local/reducers/players'
+import { ReducersProps } from 'redux-local'
 
 export type SearchCompareProps = {
   searchVisibilityControl: Dispatch<SetStateAction<boolean>>
@@ -24,12 +24,18 @@ const SearchCompare = ({
 }: SearchCompareProps) => {
   const dispatch = useDispatch()
   const comparedPlayers = useSelector(
-    (state: InitialStateProps) => state.players
+    ({ playerReducer }: ReducersProps) => playerReducer.players
   )
   const controlPlayerAdd = (player: PlayerProps) => {
-    if (!comparedPlayers.find((p) => p?.player_id === player?.player_id)) {
+    if (
+      !comparedPlayers.find(
+        (p: PlayerProps) => p?.player_id === player?.player_id
+      )
+    ) {
       if (player?.best_position === 'GK') {
-        if (!comparedPlayers.every((p) => p?.best_position === 'GK')) {
+        if (
+          !comparedPlayers.every((p: PlayerProps) => p?.best_position === 'GK')
+        ) {
           return alert(
             'You cannot add a goalkeeper on a list with line field players !'
           )

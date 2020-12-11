@@ -24,7 +24,13 @@ export const Wrapper = styled.header<
       position: absolute;
       top: ${onTop ? '-7rem' : '0'};
       left: 0;
-      background-color: ${rgba(darken(0.5, theme.colors[color!]), 0.7)};
+      background-color: ${rgba(
+        darken(
+          0.5,
+          color === 'primary' ? theme.colors.primary : theme.colors.secondary
+        ),
+        0.7
+      )};
       background-size: cover;
       width: 100%;
       height: ${onTop ? 'calc(100% + 7rem)' : '100%'};

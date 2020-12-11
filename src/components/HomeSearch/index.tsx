@@ -10,15 +10,17 @@ import { Container } from 'components/Container'
 import Heading from 'components/Heading'
 import { useSelector } from 'react-redux'
 import { Player as PlayerProps } from 'generated/graphql'
-import { InitialStateProps } from 'redux-local/reducers/players'
 import { useState } from 'react'
+import { ReducersProps } from 'redux-local'
 
 const HomeSearch = () => {
   const [search, { called, loading, data }] = usePlayerSearchLazyQuery({
     fetchPolicy: 'no-cache'
   })
   const [displayTopPlayers, setDisplayTopPlayers] = useState<boolean>(true)
-  const topPlayers = useSelector((state: InitialStateProps) => state.topPlayers)
+  const topPlayers = useSelector(
+    ({ playerReducer }: ReducersProps) => playerReducer.topPlayers
+  )
   return (
     <S.Wrapper>
       <SectionBackground reduced>
@@ -104,7 +106,7 @@ const HomeSearch = () => {
                   return (
                     card && (
                       <PlayerCard
-                        {...playerCardDataFormatted(card)}
+                        {...playerCardDataFormatted(card as PlayerProps)}
                         key={index}
                         variant="small"
                       />

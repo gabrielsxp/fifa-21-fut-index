@@ -25,7 +25,16 @@ export const PlayersContainer = styled.div`
   overflow: hidden;
   align-content: flex-start;
   grid-gap: 1rem;
-  ${media.greaterThan('medium')`
+  @media screen and (min-width: 400px) and (max-width: 599px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  ${media.between('small', 'medium')`
+    grid-template-columns: repeat(4, 1fr);
+  `}
+  ${media.between('medium', 'large')`
+    grid-template-columns: repeat(6, 1fr);
+  `}
+  ${media.greaterThan('large')`
     grid-template-columns: repeat(12, 1fr);
   `}
 `

@@ -1,0 +1,7 @@
+mutation updateComparison ($id: ID!, $players: [ID]!) {
+  updateComparison (input: { data: { players: $players }, where: { id: $id } }) {
+    comparison {
+      id
+    }
+  }
+}

@@ -11,8 +11,9 @@ import { Button } from '@chakra-ui/react'
 import Link from 'next/link'
 import ComparePlayers from 'components/ComparePlayers'
 import { useDispatch, useSelector } from 'react-redux'
-
-import { useMemo, useState } from 'react'
+import { useUpdateFavoriteMutation } from 'generated/graphql'
+import { ReducersProps } from 'redux-local'
+import { useEffect, useState } from 'react'
 import {
   Radar,
   RadarChart,
@@ -27,22 +28,98 @@ import {
   generatePlayerFields,
   playerRadarChartDataConstructor
 } from 'utils/playerMethods'
-import { InitialStateProps } from 'redux-local/reducers/players'
 
 export type PlayerHeaderProps = {
   player: PlayerProps
 }
 
 const PlayerHeader = ({ player }: PlayerHeaderProps) => {
+  const dispatch = useDispatch()
+
   const [chartData, setChartData] = useState<DataChartProps[]>([])
   const [playerTopAttrs, setPlayerTopAttrs] = useState<AccumulatorProps[]>([])
   const [comparePlayersOpen, setComparePlayersOpen] = useState<boolean>(false)
-  const dispatch = useDispatch()
+  const [isFavorited, setIsFavorited] = useState<boolean>(false)
+  const [favoriteId, setFavoriteId] = useState<string>('')
+  const [favoritedPlayers, setFavoritedPlayers] = useState<number[]>([])
   const comparedPlayers = useSelector(
-    (state: InitialStateProps) => state.players
+    ({ playerReducer }: ReducersProps) => playerReducer.players
   )
+  const user = useSelector(({ userReducer }: ReducersProps) => userReducer.user)
 
-  useMemo(() => {
+  const [
+    updateFavoriteMutation,
+    { loading: loadingFavorites }
+  ] = useUpdateFavoriteMutation({})
+
+  const controlFavorites = () => {
+    if (isFavorited) {
+      const favorites = localStorage.getItem('favorites')
+      if (favorites) {
+        const f = JSON.parse(favorites)
+        const players = f.players.filter(
+          (p: number) => p.toString() !== player?.id
+        )
+        console.log('favorites now: ', players)
+        localStorage.setItem(
+          'favorites',
+          JSON.stringify({
+            id: favoriteId,
+            players
+          })
+        )
+        updateFavoriteMutation({
+          variables: {
+            id: favoriteId,
+            players: players.map((p: number) => p.toString())
+          }
+        }).then(() => {
+          setIsFavorited(false)
+          localStorage.setItem(
+            'favorites',
+            JSON.stringify({
+              id: favoriteId.toString(),
+              players: [...favoritedPlayers, parseInt(player?.id ?? '-1')]
+            })
+          )
+        })
+      }
+    } else {
+      updateFavoriteMutation({
+        variables: {
+          id: favoriteId,
+          players: Array.from(
+            new Set([...favoritedPlayers, parseInt(player?.id ?? '-1')])
+          ).map((p: number) => p.toString())
+        }
+      }).then(() => {
+        setIsFavorited(true)
+        localStorage.setItem(
+          'favorites',
+          JSON.stringify({
+            id: favoriteId,
+            players: Array.from(
+              new Set([...favoritedPlayers, parseInt(player?.id ?? '-1')])
+            )
+          })
+        )
+      })
+    }
+  }
+
+  useEffect(() => {
+    const favorites = localStorage.getItem('favorites')
+    if (favorites) {
+      const f = JSON.parse(favorites)
+      console.log('favorites: ', f, player.id)
+      setFavoriteId(f.id)
+      setFavoritedPlayers(f.players)
+      if (f.players.find((p: number) => p === parseInt(player?.id ?? '-1'))) {
+        setIsFavorited(true)
+      } else {
+        setIsFavorited(false)
+      }
+    }
     const chartData: DataChartProps[] = playerRadarChartDataConstructor(
       player,
       player?.best_position === 'GK'
@@ -53,7 +130,11 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
   }, [player])
 
   const addPlayerToComparison = (player: PlayerProps) => {
-    if (!comparedPlayers.find((p) => p?.player_id === player?.player_id)) {
+    if (
+      !comparedPlayers.find(
+        (p: PlayerProps) => p?.player_id === player?.player_id
+      )
+    ) {
       dispatch({
         type: 'SET_PLAYERS',
         payload: {
@@ -184,6 +265,18 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
                   Compare
                 </Button>
               </S.CommomStat>
+              {user && (
+                <S.CommomStat>
+                  <Button
+                    isLoading={loadingFavorites}
+                    onClick={() => controlFavorites()}
+                    variant={isFavorited ? 'solid' : 'outline'}
+                    colorScheme={isFavorited ? 'pink' : 'white'}
+                  >
+                    {isFavorited ? 'Remove from favorites' : 'Add to Favorites'}
+                  </Button>
+                </S.CommomStat>
+              )}
             </S.CommonStatsContainer>
           </S.PlayerMainStatsContainer>
           <S.PlayerMainStatsContainer>

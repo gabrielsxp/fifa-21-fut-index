@@ -76,6 +76,232 @@ export type UserPermissionsPasswordPayload = {
   ok: Scalars['Boolean']
 }
 
+export type Comparison = {
+  __typename?: 'Comparison'
+  id?: Scalars['ID']
+  created_at?: Scalars['DateTime']
+  updated_at?: Scalars['DateTime']
+  user?: Maybe<AdminUser>
+  published_at?: Maybe<Scalars['DateTime']>
+  players?: Maybe<Array<Maybe<Player>>>
+}
+
+export type ComparisonPlayersArgs = {
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+}
+
+export type ComparisonConnection = {
+  __typename?: 'ComparisonConnection'
+  values?: Maybe<Array<Maybe<Comparison>>>
+  groupBy?: Maybe<ComparisonGroupBy>
+  aggregate?: Maybe<ComparisonAggregator>
+}
+
+export type ComparisonAggregator = {
+  __typename?: 'ComparisonAggregator'
+  count?: Maybe<Scalars['Int']>
+  totalCount?: Maybe<Scalars['Int']>
+}
+
+export type ComparisonGroupBy = {
+  __typename?: 'ComparisonGroupBy'
+  id?: Maybe<Array<Maybe<ComparisonConnectionId>>>
+  created_at?: Maybe<Array<Maybe<ComparisonConnectionCreated_At>>>
+  updated_at?: Maybe<Array<Maybe<ComparisonConnectionUpdated_At>>>
+  user?: Maybe<Array<Maybe<ComparisonConnectionUser>>>
+  published_at?: Maybe<Array<Maybe<ComparisonConnectionPublished_At>>>
+}
+
+export type ComparisonConnectionId = {
+  __typename?: 'ComparisonConnectionId'
+  key?: Maybe<Scalars['ID']>
+  connection?: Maybe<ComparisonConnection>
+}
+
+export type ComparisonConnectionCreated_At = {
+  __typename?: 'ComparisonConnectionCreated_at'
+  key?: Maybe<Scalars['DateTime']>
+  connection?: Maybe<ComparisonConnection>
+}
+
+export type ComparisonConnectionUpdated_At = {
+  __typename?: 'ComparisonConnectionUpdated_at'
+  key?: Maybe<Scalars['DateTime']>
+  connection?: Maybe<ComparisonConnection>
+}
+
+export type ComparisonConnectionUser = {
+  __typename?: 'ComparisonConnectionUser'
+  key?: Maybe<Scalars['ID']>
+  connection?: Maybe<ComparisonConnection>
+}
+
+export type ComparisonConnectionPublished_At = {
+  __typename?: 'ComparisonConnectionPublished_at'
+  key?: Maybe<Scalars['DateTime']>
+  connection?: Maybe<ComparisonConnection>
+}
+
+export type ComparisonInput = {
+  players?: Maybe<Array<Maybe<Scalars['ID']>>>
+  user?: Maybe<Scalars['ID']>
+  published_at?: Maybe<Scalars['DateTime']>
+  created_by?: Maybe<Scalars['ID']>
+  updated_by?: Maybe<Scalars['ID']>
+}
+
+export type EditComparisonInput = {
+  players?: Maybe<Array<Maybe<Scalars['ID']>>>
+  user?: Maybe<Scalars['ID']>
+  published_at?: Maybe<Scalars['DateTime']>
+  created_by?: Maybe<Scalars['ID']>
+  updated_by?: Maybe<Scalars['ID']>
+}
+
+export type CreateComparisonInput = {
+  data?: Maybe<ComparisonInput>
+}
+
+export type CreateComparisonPayload = {
+  __typename?: 'createComparisonPayload'
+  comparison?: Maybe<Comparison>
+}
+
+export type UpdateComparisonInput = {
+  where?: Maybe<InputId>
+  data?: Maybe<EditComparisonInput>
+}
+
+export type UpdateComparisonPayload = {
+  __typename?: 'updateComparisonPayload'
+  comparison?: Maybe<Comparison>
+}
+
+export type DeleteComparisonInput = {
+  where?: Maybe<InputId>
+}
+
+export type DeleteComparisonPayload = {
+  __typename?: 'deleteComparisonPayload'
+  comparison?: Maybe<Comparison>
+}
+
+export type Favorite = {
+  __typename?: 'Favorite'
+  id?: Scalars['ID']
+  created_at?: Scalars['DateTime']
+  updated_at?: Scalars['DateTime']
+  user?: Maybe<AdminUser>
+  published_at?: Maybe<Scalars['DateTime']>
+  players?: Maybe<Array<Maybe<Player>>>
+}
+
+export type FavoritePlayersArgs = {
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+}
+
+export type FavoriteConnection = {
+  __typename?: 'FavoriteConnection'
+  values?: Maybe<Array<Maybe<Favorite>>>
+  groupBy?: Maybe<FavoriteGroupBy>
+  aggregate?: Maybe<FavoriteAggregator>
+}
+
+export type FavoriteAggregator = {
+  __typename?: 'FavoriteAggregator'
+  count?: Maybe<Scalars['Int']>
+  totalCount?: Maybe<Scalars['Int']>
+}
+
+export type FavoriteGroupBy = {
+  __typename?: 'FavoriteGroupBy'
+  id?: Maybe<Array<Maybe<FavoriteConnectionId>>>
+  created_at?: Maybe<Array<Maybe<FavoriteConnectionCreated_At>>>
+  updated_at?: Maybe<Array<Maybe<FavoriteConnectionUpdated_At>>>
+  user?: Maybe<Array<Maybe<FavoriteConnectionUser>>>
+  published_at?: Maybe<Array<Maybe<FavoriteConnectionPublished_At>>>
+}
+
+export type FavoriteConnectionId = {
+  __typename?: 'FavoriteConnectionId'
+  key?: Maybe<Scalars['ID']>
+  connection?: Maybe<FavoriteConnection>
+}
+
+export type FavoriteConnectionCreated_At = {
+  __typename?: 'FavoriteConnectionCreated_at'
+  key?: Maybe<Scalars['DateTime']>
+  connection?: Maybe<FavoriteConnection>
+}
+
+export type FavoriteConnectionUpdated_At = {
+  __typename?: 'FavoriteConnectionUpdated_at'
+  key?: Maybe<Scalars['DateTime']>
+  connection?: Maybe<FavoriteConnection>
+}
+
+export type FavoriteConnectionUser = {
+  __typename?: 'FavoriteConnectionUser'
+  key?: Maybe<Scalars['ID']>
+  connection?: Maybe<FavoriteConnection>
+}
+
+export type FavoriteConnectionPublished_At = {
+  __typename?: 'FavoriteConnectionPublished_at'
+  key?: Maybe<Scalars['DateTime']>
+  connection?: Maybe<FavoriteConnection>
+}
+
+export type FavoriteInput = {
+  players?: Maybe<Array<Maybe<Scalars['ID']>>>
+  user?: Maybe<Scalars['ID']>
+  published_at?: Maybe<Scalars['DateTime']>
+  created_by?: Maybe<Scalars['ID']>
+  updated_by?: Maybe<Scalars['ID']>
+}
+
+export type EditFavoriteInput = {
+  players?: Maybe<Array<Maybe<Scalars['ID']>>>
+  user?: Maybe<Scalars['ID']>
+  published_at?: Maybe<Scalars['DateTime']>
+  created_by?: Maybe<Scalars['ID']>
+  updated_by?: Maybe<Scalars['ID']>
+}
+
+export type CreateFavoriteInput = {
+  data?: Maybe<FavoriteInput>
+}
+
+export type CreateFavoritePayload = {
+  __typename?: 'createFavoritePayload'
+  favorite?: Maybe<Favorite>
+}
+
+export type UpdateFavoriteInput = {
+  where?: Maybe<InputId>
+  data?: Maybe<EditFavoriteInput>
+}
+
+export type UpdateFavoritePayload = {
+  __typename?: 'updateFavoritePayload'
+  favorite?: Maybe<Favorite>
+}
+
+export type DeleteFavoriteInput = {
+  where?: Maybe<InputId>
+}
+
+export type DeleteFavoritePayload = {
+  __typename?: 'deleteFavoritePayload'
+  favorite?: Maybe<Favorite>
+}
+
 export type Nation = {
   __typename?: 'Nation'
   id?: Scalars['ID']
@@ -1286,7 +1512,7 @@ export type UploadFile = {
   ext?: Maybe<Scalars['String']>
   mime?: Scalars['String']
   size?: Scalars['Float']
-  url: Scalars['String']
+  url?: Scalars['String']
   previewUrl?: Maybe<Scalars['String']>
   provider?: Scalars['String']
   provider_metadata?: Maybe<Scalars['JSON']>
@@ -1799,6 +2025,30 @@ export type Morph =
   | UsersPermissionsMeRole
   | UsersPermissionsLoginPayload
   | UserPermissionsPasswordPayload
+  | Comparison
+  | ComparisonConnection
+  | ComparisonAggregator
+  | ComparisonGroupBy
+  | ComparisonConnectionId
+  | ComparisonConnectionCreated_At
+  | ComparisonConnectionUpdated_At
+  | ComparisonConnectionUser
+  | ComparisonConnectionPublished_At
+  | CreateComparisonPayload
+  | UpdateComparisonPayload
+  | DeleteComparisonPayload
+  | Favorite
+  | FavoriteConnection
+  | FavoriteAggregator
+  | FavoriteGroupBy
+  | FavoriteConnectionId
+  | FavoriteConnectionCreated_At
+  | FavoriteConnectionUpdated_At
+  | FavoriteConnectionUser
+  | FavoriteConnectionPublished_At
+  | CreateFavoritePayload
+  | UpdateFavoritePayload
+  | DeleteFavoritePayload
   | Nation
   | NationConnection
   | NationAggregator
@@ -1980,6 +2230,12 @@ export type AdminUser = {
 
 export type Query = {
   __typename?: 'Query'
+  comparison?: Maybe<Comparison>
+  comparisons?: Maybe<Array<Maybe<Comparison>>>
+  comparisonsConnection?: Maybe<ComparisonConnection>
+  favorite?: Maybe<Favorite>
+  favorites?: Maybe<Array<Maybe<Favorite>>>
+  favoritesConnection?: Maybe<FavoriteConnection>
   nation?: Maybe<Nation>
   nations?: Maybe<Array<Maybe<Nation>>>
   nationsConnection?: Maybe<NationConnection>
@@ -1999,6 +2255,46 @@ export type Query = {
   users?: Maybe<Array<Maybe<UsersPermissionsUser>>>
   usersConnection?: Maybe<UsersPermissionsUserConnection>
   me?: Maybe<UsersPermissionsMe>
+}
+
+export type QueryComparisonArgs = {
+  id: Scalars['ID']
+  publicationState?: Maybe<PublicationState>
+}
+
+export type QueryComparisonsArgs = {
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+  publicationState?: Maybe<PublicationState>
+}
+
+export type QueryComparisonsConnectionArgs = {
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+}
+
+export type QueryFavoriteArgs = {
+  id: Scalars['ID']
+  publicationState?: Maybe<PublicationState>
+}
+
+export type QueryFavoritesArgs = {
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+  publicationState?: Maybe<PublicationState>
+}
+
+export type QueryFavoritesConnectionArgs = {
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
 }
 
 export type QueryNationArgs = {
@@ -2118,6 +2414,12 @@ export type QueryUsersConnectionArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation'
+  createComparison?: Maybe<CreateComparisonPayload>
+  updateComparison?: Maybe<UpdateComparisonPayload>
+  deleteComparison?: Maybe<DeleteComparisonPayload>
+  createFavorite?: Maybe<CreateFavoritePayload>
+  updateFavorite?: Maybe<UpdateFavoritePayload>
+  deleteFavorite?: Maybe<DeleteFavoritePayload>
   createNation?: Maybe<CreateNationPayload>
   updateNation?: Maybe<UpdateNationPayload>
   deleteNation?: Maybe<DeleteNationPayload>
@@ -2149,6 +2451,30 @@ export type Mutation = {
   forgotPassword?: Maybe<UserPermissionsPasswordPayload>
   resetPassword?: Maybe<UsersPermissionsLoginPayload>
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>
+}
+
+export type MutationCreateComparisonArgs = {
+  input?: Maybe<CreateComparisonInput>
+}
+
+export type MutationUpdateComparisonArgs = {
+  input?: Maybe<UpdateComparisonInput>
+}
+
+export type MutationDeleteComparisonArgs = {
+  input?: Maybe<DeleteComparisonInput>
+}
+
+export type MutationCreateFavoriteArgs = {
+  input?: Maybe<CreateFavoriteInput>
+}
+
+export type MutationUpdateFavoriteArgs = {
+  input?: Maybe<UpdateFavoriteInput>
+}
+
+export type MutationDeleteFavoriteArgs = {
+  input?: Maybe<DeleteFavoriteInput>
 }
 
 export type MutationCreateNationArgs = {
@@ -2263,6 +2589,275 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
+export type CreateComparisonMutationVariables = Exact<{
+  players: Array<Maybe<Scalars['ID']>>
+  user: Scalars['ID']
+}>
+
+export type CreateComparisonMutation = { __typename?: 'Mutation' } & {
+  createComparison?: Maybe<
+    { __typename?: 'createComparisonPayload' } & {
+      comparison?: Maybe<{ __typename?: 'Comparison' } & Pick<Comparison, 'id'>>
+    }
+  >
+}
+
+export type CreateFavoriteMutationVariables = Exact<{
+  players: Array<Maybe<Scalars['ID']>>
+  user: Scalars['ID']
+}>
+
+export type CreateFavoriteMutation = { __typename?: 'Mutation' } & {
+  createFavorite?: Maybe<
+    { __typename?: 'createFavoritePayload' } & {
+      favorite?: Maybe<{ __typename?: 'Favorite' } & Pick<Favorite, 'id'>>
+    }
+  >
+}
+
+export type DeleteComparisonMutationVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type DeleteComparisonMutation = { __typename?: 'Mutation' } & {
+  deleteComparison?: Maybe<
+    { __typename?: 'deleteComparisonPayload' } & {
+      comparison?: Maybe<{ __typename?: 'Comparison' } & Pick<Comparison, 'id'>>
+    }
+  >
+}
+
+export type DeleteFavoriteMutationVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type DeleteFavoriteMutation = { __typename?: 'Mutation' } & {
+  deleteFavorite?: Maybe<
+    { __typename?: 'deleteFavoritePayload' } & {
+      favorite?: Maybe<{ __typename?: 'Favorite' } & Pick<Favorite, 'id'>>
+    }
+  >
+}
+
+export type ForgotPasswordMutationVariables = Exact<{
+  email: Scalars['String']
+}>
+
+export type ForgotPasswordMutation = { __typename?: 'Mutation' } & {
+  forgotPassword?: Maybe<
+    { __typename?: 'UserPermissionsPasswordPayload' } & Pick<
+      UserPermissionsPasswordPayload,
+      'ok'
+    >
+  >
+}
+
+export type GetComparisonsQueryVariables = Exact<{
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+}>
+
+export type GetComparisonsQuery = { __typename?: 'Query' } & {
+  comparisons?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Comparison' } & Pick<Comparison, 'id'> & {
+            user?: Maybe<{ __typename?: 'AdminUser' } & Pick<AdminUser, 'id'>>
+            players?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: 'Player' } & Pick<
+                    Player,
+                    | 'id'
+                    | 'player_id'
+                    | 'name'
+                    | 'age'
+                    | 'height'
+                    | 'weight'
+                    | 'preferred_foot'
+                    | 'defensive_awareness'
+                    | 'weak_foot'
+                    | 'international_reputation'
+                    | 'skill_moves'
+                    | 'work_rate'
+                    | 'real_face'
+                    | 'overall'
+                    | 'potential'
+                    | 'crossing'
+                    | 'finishing'
+                    | 'heading_accuracy'
+                    | 'short_passing'
+                    | 'volleys'
+                    | 'dribbling'
+                    | 'curve'
+                    | 'f_k_accuracy'
+                    | 'long_passing'
+                    | 'ball_control'
+                    | 'acceleration'
+                    | 'sprint_speed'
+                    | 'agility'
+                    | 'reactions'
+                    | 'balance'
+                    | 'shot_power'
+                    | 'jumping'
+                    | 'stamina'
+                    | 'strength'
+                    | 'long_shots'
+                    | 'aggression'
+                    | 'interceptions'
+                    | 'positioning'
+                    | 'vision'
+                    | 'penalties'
+                    | 'composure'
+                    | 'marking'
+                    | 'standing_tackle'
+                    | 'sliding_tackle'
+                    | 'g_k_diving'
+                    | 'g_k_kicking'
+                    | 'g_k_positioning'
+                    | 'g_k_reflexes'
+                    | 'best_position'
+                    | 'best_overall_rating'
+                    | 'position'
+                  > & {
+                      photo?: Maybe<
+                        { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
+                      >
+                      nation?: Maybe<
+                        { __typename?: 'Nation' } & Pick<Nation, 'name'> & {
+                            image?: Maybe<
+                              { __typename?: 'UploadFile' } & Pick<
+                                UploadFile,
+                                'url'
+                              >
+                            >
+                          }
+                      >
+                      team?: Maybe<
+                        { __typename?: 'Team' } & Pick<Team, 'name'> & {
+                            image?: Maybe<
+                              { __typename?: 'UploadFile' } & Pick<
+                                UploadFile,
+                                'url'
+                              >
+                            >
+                          }
+                      >
+                    }
+                >
+              >
+            >
+          }
+      >
+    >
+  >
+}
+
+export type GetFavoritesQueryVariables = Exact<{
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+}>
+
+export type GetFavoritesQuery = { __typename?: 'Query' } & {
+  favorites?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Favorite' } & Pick<Favorite, 'id'> & {
+            user?: Maybe<{ __typename?: 'AdminUser' } & Pick<AdminUser, 'id'>>
+            players?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: 'Player' } & Pick<
+                    Player,
+                    | 'id'
+                    | 'player_id'
+                    | 'name'
+                    | 'age'
+                    | 'height'
+                    | 'weight'
+                    | 'preferred_foot'
+                    | 'defensive_awareness'
+                    | 'weak_foot'
+                    | 'international_reputation'
+                    | 'skill_moves'
+                    | 'work_rate'
+                    | 'real_face'
+                    | 'overall'
+                    | 'potential'
+                    | 'crossing'
+                    | 'finishing'
+                    | 'heading_accuracy'
+                    | 'short_passing'
+                    | 'volleys'
+                    | 'dribbling'
+                    | 'curve'
+                    | 'f_k_accuracy'
+                    | 'long_passing'
+                    | 'ball_control'
+                    | 'acceleration'
+                    | 'sprint_speed'
+                    | 'agility'
+                    | 'reactions'
+                    | 'balance'
+                    | 'shot_power'
+                    | 'jumping'
+                    | 'stamina'
+                    | 'strength'
+                    | 'long_shots'
+                    | 'aggression'
+                    | 'interceptions'
+                    | 'positioning'
+                    | 'vision'
+                    | 'penalties'
+                    | 'composure'
+                    | 'marking'
+                    | 'standing_tackle'
+                    | 'sliding_tackle'
+                    | 'g_k_diving'
+                    | 'g_k_kicking'
+                    | 'g_k_positioning'
+                    | 'g_k_reflexes'
+                    | 'best_position'
+                    | 'best_overall_rating'
+                    | 'position'
+                  > & {
+                      photo?: Maybe<
+                        { __typename?: 'UploadFile' } & Pick<UploadFile, 'url'>
+                      >
+                      nation?: Maybe<
+                        { __typename?: 'Nation' } & Pick<Nation, 'name'> & {
+                            image?: Maybe<
+                              { __typename?: 'UploadFile' } & Pick<
+                                UploadFile,
+                                'url'
+                              >
+                            >
+                          }
+                      >
+                      team?: Maybe<
+                        { __typename?: 'Team' } & Pick<Team, 'name'> & {
+                            image?: Maybe<
+                              { __typename?: 'UploadFile' } & Pick<
+                                UploadFile,
+                                'url'
+                              >
+                            >
+                          }
+                      >
+                    }
+                >
+              >
+            >
+          }
+      >
+    >
+  >
+}
+
 export type NationPageQueryVariables = Exact<{
   slug: Scalars['String']
 }>
@@ -2280,6 +2875,7 @@ export type NationPageQuery = { __typename?: 'Query' } & {
                 Maybe<
                   { __typename?: 'Player' } & Pick<
                     Player,
+                    | 'id'
                     | 'player_id'
                     | 'name'
                     | 'overall'
@@ -2331,6 +2927,7 @@ export type GetPlayerQuery = { __typename?: 'Query' } & {
         { __typename?: 'Player' } & Pick<
           Player,
           | 'player_id'
+          | 'id'
           | 'name'
           | 'jersey_number'
           | 'age'
@@ -2424,6 +3021,7 @@ export type TeamPageQuery = { __typename?: 'Query' } & {
                 Maybe<
                   { __typename?: 'Player' } & Pick<
                     Player,
+                    | 'id'
                     | 'player_id'
                     | 'name'
                     | 'overall'
@@ -2464,6 +3062,23 @@ export type TeamPageQuery = { __typename?: 'Query' } & {
   >
 }
 
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String']
+  password: Scalars['String']
+}>
+
+export type LoginMutation = { __typename?: 'Mutation' } & {
+  login: { __typename?: 'UsersPermissionsLoginPayload' } & Pick<
+    UsersPermissionsLoginPayload,
+    'jwt'
+  > & {
+      user: { __typename?: 'UsersPermissionsMe' } & Pick<
+        UsersPermissionsMe,
+        'id' | 'username' | 'email'
+      >
+    }
+}
+
 export type PlayerSearchQueryVariables = Exact<{
   sort?: Maybe<Scalars['String']>
   limit?: Maybe<Scalars['Int']>
@@ -2478,6 +3093,7 @@ export type PlayerSearchQuery = { __typename?: 'Query' } & {
         { __typename?: 'Player' } & Pick<
           Player,
           | 'player_id'
+          | 'id'
           | 'name'
           | 'jersey_number'
           | 'age'
@@ -2554,6 +3170,581 @@ export type PlayerSearchQuery = { __typename?: 'Query' } & {
   >
 }
 
+export type RegisterMutationVariables = Exact<{
+  login: Scalars['String']
+  email: Scalars['String']
+  password: Scalars['String']
+}>
+
+export type RegisterMutation = { __typename?: 'Mutation' } & {
+  register: { __typename?: 'UsersPermissionsLoginPayload' } & Pick<
+    UsersPermissionsLoginPayload,
+    'jwt'
+  > & {
+      user: { __typename?: 'UsersPermissionsMe' } & Pick<
+        UsersPermissionsMe,
+        'id' | 'username' | 'email'
+      >
+    }
+}
+
+export type ResetPasswordMutationVariables = Exact<{
+  code: Scalars['String']
+  password: Scalars['String']
+  passwordConfirmation: Scalars['String']
+}>
+
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
+  resetPassword?: Maybe<
+    { __typename?: 'UsersPermissionsLoginPayload' } & {
+      user: { __typename?: 'UsersPermissionsMe' } & Pick<
+        UsersPermissionsMe,
+        'id' | 'username'
+      >
+    }
+  >
+}
+
+export type UpdateComparisonMutationVariables = Exact<{
+  id: Scalars['ID']
+  players: Array<Maybe<Scalars['ID']>>
+}>
+
+export type UpdateComparisonMutation = { __typename?: 'Mutation' } & {
+  updateComparison?: Maybe<
+    { __typename?: 'updateComparisonPayload' } & {
+      comparison?: Maybe<{ __typename?: 'Comparison' } & Pick<Comparison, 'id'>>
+    }
+  >
+}
+
+export type UpdateFavoriteMutationVariables = Exact<{
+  id: Scalars['ID']
+  players: Array<Maybe<Scalars['ID']>>
+}>
+
+export type UpdateFavoriteMutation = { __typename?: 'Mutation' } & {
+  updateFavorite?: Maybe<
+    { __typename?: 'updateFavoritePayload' } & {
+      favorite?: Maybe<{ __typename?: 'Favorite' } & Pick<Favorite, 'id'>>
+    }
+  >
+}
+
+export const CreateComparisonDocument = gql`
+  mutation createComparison($players: [ID]!, $user: ID!) {
+    createComparison(input: { data: { players: $players, user: $user } }) {
+      comparison {
+        id
+      }
+    }
+  }
+`
+export type CreateComparisonMutationFn = Apollo.MutationFunction<
+  CreateComparisonMutation,
+  CreateComparisonMutationVariables
+>
+
+/**
+ * __useCreateComparisonMutation__
+ *
+ * To run a mutation, you first call `useCreateComparisonMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateComparisonMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createComparisonMutation, { data, loading, error }] = useCreateComparisonMutation({
+ *   variables: {
+ *      players: // value for 'players'
+ *      user: // value for 'user'
+ *   },
+ * });
+ */
+export function useCreateComparisonMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateComparisonMutation,
+    CreateComparisonMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    CreateComparisonMutation,
+    CreateComparisonMutationVariables
+  >(CreateComparisonDocument, baseOptions)
+}
+export type CreateComparisonMutationHookResult = ReturnType<
+  typeof useCreateComparisonMutation
+>
+export type CreateComparisonMutationResult = Apollo.MutationResult<CreateComparisonMutation>
+export type CreateComparisonMutationOptions = Apollo.BaseMutationOptions<
+  CreateComparisonMutation,
+  CreateComparisonMutationVariables
+>
+export const CreateFavoriteDocument = gql`
+  mutation createFavorite($players: [ID]!, $user: ID!) {
+    createFavorite(input: { data: { players: $players, user: $user } }) {
+      favorite {
+        id
+      }
+    }
+  }
+`
+export type CreateFavoriteMutationFn = Apollo.MutationFunction<
+  CreateFavoriteMutation,
+  CreateFavoriteMutationVariables
+>
+
+/**
+ * __useCreateFavoriteMutation__
+ *
+ * To run a mutation, you first call `useCreateFavoriteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFavoriteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createFavoriteMutation, { data, loading, error }] = useCreateFavoriteMutation({
+ *   variables: {
+ *      players: // value for 'players'
+ *      user: // value for 'user'
+ *   },
+ * });
+ */
+export function useCreateFavoriteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateFavoriteMutation,
+    CreateFavoriteMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    CreateFavoriteMutation,
+    CreateFavoriteMutationVariables
+  >(CreateFavoriteDocument, baseOptions)
+}
+export type CreateFavoriteMutationHookResult = ReturnType<
+  typeof useCreateFavoriteMutation
+>
+export type CreateFavoriteMutationResult = Apollo.MutationResult<CreateFavoriteMutation>
+export type CreateFavoriteMutationOptions = Apollo.BaseMutationOptions<
+  CreateFavoriteMutation,
+  CreateFavoriteMutationVariables
+>
+export const DeleteComparisonDocument = gql`
+  mutation deleteComparison($id: ID!) {
+    deleteComparison(input: { where: { id: $id } }) {
+      comparison {
+        id
+      }
+    }
+  }
+`
+export type DeleteComparisonMutationFn = Apollo.MutationFunction<
+  DeleteComparisonMutation,
+  DeleteComparisonMutationVariables
+>
+
+/**
+ * __useDeleteComparisonMutation__
+ *
+ * To run a mutation, you first call `useDeleteComparisonMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteComparisonMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteComparisonMutation, { data, loading, error }] = useDeleteComparisonMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteComparisonMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteComparisonMutation,
+    DeleteComparisonMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    DeleteComparisonMutation,
+    DeleteComparisonMutationVariables
+  >(DeleteComparisonDocument, baseOptions)
+}
+export type DeleteComparisonMutationHookResult = ReturnType<
+  typeof useDeleteComparisonMutation
+>
+export type DeleteComparisonMutationResult = Apollo.MutationResult<DeleteComparisonMutation>
+export type DeleteComparisonMutationOptions = Apollo.BaseMutationOptions<
+  DeleteComparisonMutation,
+  DeleteComparisonMutationVariables
+>
+export const DeleteFavoriteDocument = gql`
+  mutation deleteFavorite($id: ID!) {
+    deleteFavorite(input: { where: { id: $id } }) {
+      favorite {
+        id
+      }
+    }
+  }
+`
+export type DeleteFavoriteMutationFn = Apollo.MutationFunction<
+  DeleteFavoriteMutation,
+  DeleteFavoriteMutationVariables
+>
+
+/**
+ * __useDeleteFavoriteMutation__
+ *
+ * To run a mutation, you first call `useDeleteFavoriteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteFavoriteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteFavoriteMutation, { data, loading, error }] = useDeleteFavoriteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteFavoriteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteFavoriteMutation,
+    DeleteFavoriteMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    DeleteFavoriteMutation,
+    DeleteFavoriteMutationVariables
+  >(DeleteFavoriteDocument, baseOptions)
+}
+export type DeleteFavoriteMutationHookResult = ReturnType<
+  typeof useDeleteFavoriteMutation
+>
+export type DeleteFavoriteMutationResult = Apollo.MutationResult<DeleteFavoriteMutation>
+export type DeleteFavoriteMutationOptions = Apollo.BaseMutationOptions<
+  DeleteFavoriteMutation,
+  DeleteFavoriteMutationVariables
+>
+export const ForgotPasswordDocument = gql`
+  mutation forgotPassword($email: String!) {
+    forgotPassword(email: $email) {
+      ok
+    }
+  }
+`
+export type ForgotPasswordMutationFn = Apollo.MutationFunction<
+  ForgotPasswordMutation,
+  ForgotPasswordMutationVariables
+>
+
+/**
+ * __useForgotPasswordMutation__
+ *
+ * To run a mutation, you first call `useForgotPasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useForgotPasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [forgotPasswordMutation, { data, loading, error }] = useForgotPasswordMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useForgotPasswordMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ForgotPasswordMutation,
+    ForgotPasswordMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    ForgotPasswordMutation,
+    ForgotPasswordMutationVariables
+  >(ForgotPasswordDocument, baseOptions)
+}
+export type ForgotPasswordMutationHookResult = ReturnType<
+  typeof useForgotPasswordMutation
+>
+export type ForgotPasswordMutationResult = Apollo.MutationResult<ForgotPasswordMutation>
+export type ForgotPasswordMutationOptions = Apollo.BaseMutationOptions<
+  ForgotPasswordMutation,
+  ForgotPasswordMutationVariables
+>
+export const GetComparisonsDocument = gql`
+  query getComparisons($sort: String, $limit: Int, $start: Int, $where: JSON) {
+    comparisons(sort: $sort, limit: $limit, where: $where, start: $start) {
+      id
+      user {
+        id
+      }
+      created_at
+      updated_at
+      players {
+        id
+        player_id
+        photo {
+          url
+        }
+        name
+        age
+        height
+        weight
+        preferred_foot
+        defensive_awareness
+        weak_foot
+        international_reputation
+        skill_moves
+        work_rate
+        real_face
+        overall
+        potential
+        crossing
+        finishing
+        heading_accuracy
+        short_passing
+        volleys
+        dribbling
+        curve
+        f_k_accuracy
+        long_passing
+        ball_control
+        acceleration
+        sprint_speed
+        agility
+        reactions
+        balance
+        shot_power
+        jumping
+        stamina
+        strength
+        long_shots
+        aggression
+        interceptions
+        positioning
+        vision
+        penalties
+        composure
+        marking
+        standing_tackle
+        sliding_tackle
+        g_k_diving
+        g_k_kicking
+        g_k_positioning
+        g_k_reflexes
+        best_position
+        best_overall_rating
+        position
+        nation {
+          name
+          image {
+            url
+          }
+        }
+        team {
+          name
+          image {
+            url
+          }
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetComparisonsQuery__
+ *
+ * To run a query within a React component, call `useGetComparisonsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComparisonsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComparisonsQuery({
+ *   variables: {
+ *      sort: // value for 'sort'
+ *      limit: // value for 'limit'
+ *      start: // value for 'start'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetComparisonsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetComparisonsQuery,
+    GetComparisonsQueryVariables
+  >
+) {
+  return Apollo.useQuery<GetComparisonsQuery, GetComparisonsQueryVariables>(
+    GetComparisonsDocument,
+    baseOptions
+  )
+}
+export function useGetComparisonsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComparisonsQuery,
+    GetComparisonsQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<GetComparisonsQuery, GetComparisonsQueryVariables>(
+    GetComparisonsDocument,
+    baseOptions
+  )
+}
+export type GetComparisonsQueryHookResult = ReturnType<
+  typeof useGetComparisonsQuery
+>
+export type GetComparisonsLazyQueryHookResult = ReturnType<
+  typeof useGetComparisonsLazyQuery
+>
+export type GetComparisonsQueryResult = Apollo.QueryResult<
+  GetComparisonsQuery,
+  GetComparisonsQueryVariables
+>
+export const GetFavoritesDocument = gql`
+  query getFavorites($sort: String, $limit: Int, $start: Int, $where: JSON) {
+    favorites(sort: $sort, limit: $limit, where: $where, start: $start) {
+      id
+      user {
+        id
+      }
+      players {
+        id
+        player_id
+        photo {
+          url
+        }
+        created_at
+        updated_at
+        name
+        age
+        height
+        weight
+        preferred_foot
+        defensive_awareness
+        weak_foot
+        international_reputation
+        skill_moves
+        work_rate
+        real_face
+        overall
+        potential
+        crossing
+        finishing
+        heading_accuracy
+        short_passing
+        volleys
+        dribbling
+        curve
+        f_k_accuracy
+        long_passing
+        ball_control
+        acceleration
+        sprint_speed
+        agility
+        reactions
+        balance
+        shot_power
+        jumping
+        stamina
+        strength
+        long_shots
+        aggression
+        interceptions
+        positioning
+        vision
+        penalties
+        composure
+        marking
+        standing_tackle
+        sliding_tackle
+        g_k_diving
+        g_k_kicking
+        g_k_positioning
+        g_k_reflexes
+        best_position
+        best_overall_rating
+        position
+        nation {
+          name
+          image {
+            url
+          }
+        }
+        team {
+          name
+          image {
+            url
+          }
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetFavoritesQuery__
+ *
+ * To run a query within a React component, call `useGetFavoritesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFavoritesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFavoritesQuery({
+ *   variables: {
+ *      sort: // value for 'sort'
+ *      limit: // value for 'limit'
+ *      start: // value for 'start'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetFavoritesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetFavoritesQuery,
+    GetFavoritesQueryVariables
+  >
+) {
+  return Apollo.useQuery<GetFavoritesQuery, GetFavoritesQueryVariables>(
+    GetFavoritesDocument,
+    baseOptions
+  )
+}
+export function useGetFavoritesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFavoritesQuery,
+    GetFavoritesQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<GetFavoritesQuery, GetFavoritesQueryVariables>(
+    GetFavoritesDocument,
+    baseOptions
+  )
+}
+export type GetFavoritesQueryHookResult = ReturnType<
+  typeof useGetFavoritesQuery
+>
+export type GetFavoritesLazyQueryHookResult = ReturnType<
+  typeof useGetFavoritesLazyQuery
+>
+export type GetFavoritesQueryResult = Apollo.QueryResult<
+  GetFavoritesQuery,
+  GetFavoritesQueryVariables
+>
 export const NationPageDocument = gql`
   query nationPage($slug: String!) {
     nations(where: { slug: $slug }) {
@@ -2563,6 +3754,7 @@ export const NationPageDocument = gql`
         url
       }
       players {
+        id
         player_id
         name
         overall
@@ -2637,6 +3829,7 @@ export const GetPlayerDocument = gql`
   query getPlayer($id: Int!) {
     players(where: { player_id: $id }) {
       player_id
+      id
       photo {
         url
       }
@@ -2762,6 +3955,7 @@ export const TeamPageDocument = gql`
         url
       }
       players {
+        id
         player_id
         name
         overall
@@ -2829,10 +4023,63 @@ export type TeamPageQueryResult = Apollo.QueryResult<
   TeamPageQuery,
   TeamPageQueryVariables
 >
+export const LoginDocument = gql`
+  mutation login($email: String!, $password: String!) {
+    login(input: { identifier: $email, password: $password }) {
+      jwt
+      user {
+        id
+        username
+        email
+      }
+    }
+  }
+`
+export type LoginMutationFn = Apollo.MutationFunction<
+  LoginMutation,
+  LoginMutationVariables
+>
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginMutation,
+    LoginMutationVariables
+  >
+) {
+  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
+    LoginDocument,
+    baseOptions
+  )
+}
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>
+export type LoginMutationOptions = Apollo.BaseMutationOptions<
+  LoginMutation,
+  LoginMutationVariables
+>
 export const PlayerSearchDocument = gql`
   query playerSearch($sort: String, $limit: Int, $start: Int, $where: JSON) {
     players(sort: $sort, limit: $limit, start: $start, where: $where) {
       player_id
+      id
       photo {
         url
       }
@@ -2954,4 +4201,222 @@ export type PlayerSearchLazyQueryHookResult = ReturnType<
 export type PlayerSearchQueryResult = Apollo.QueryResult<
   PlayerSearchQuery,
   PlayerSearchQueryVariables
+>
+export const RegisterDocument = gql`
+  mutation register($login: String!, $email: String!, $password: String!) {
+    register(input: { username: $login, email: $email, password: $password }) {
+      user {
+        id
+        username
+        email
+      }
+      jwt
+    }
+  }
+`
+export type RegisterMutationFn = Apollo.MutationFunction<
+  RegisterMutation,
+  RegisterMutationVariables
+>
+
+/**
+ * __useRegisterMutation__
+ *
+ * To run a mutation, you first call `useRegisterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerMutation, { data, loading, error }] = useRegisterMutation({
+ *   variables: {
+ *      login: // value for 'login'
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useRegisterMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterMutation,
+    RegisterMutationVariables
+  >
+) {
+  return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(
+    RegisterDocument,
+    baseOptions
+  )
+}
+export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>
+export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>
+export type RegisterMutationOptions = Apollo.BaseMutationOptions<
+  RegisterMutation,
+  RegisterMutationVariables
+>
+export const ResetPasswordDocument = gql`
+  mutation resetPassword(
+    $code: String!
+    $password: String!
+    $passwordConfirmation: String!
+  ) {
+    resetPassword(
+      code: $code
+      password: $password
+      passwordConfirmation: $passwordConfirmation
+    ) {
+      user {
+        id
+        username
+      }
+    }
+  }
+`
+export type ResetPasswordMutationFn = Apollo.MutationFunction<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
+>
+
+/**
+ * __useResetPasswordMutation__
+ *
+ * To run a mutation, you first call `useResetPasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetPasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetPasswordMutation, { data, loading, error }] = useResetPasswordMutation({
+ *   variables: {
+ *      code: // value for 'code'
+ *      password: // value for 'password'
+ *      passwordConfirmation: // value for 'passwordConfirmation'
+ *   },
+ * });
+ */
+export function useResetPasswordMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
+  >(ResetPasswordDocument, baseOptions)
+}
+export type ResetPasswordMutationHookResult = ReturnType<
+  typeof useResetPasswordMutation
+>
+export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>
+export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
+>
+export const UpdateComparisonDocument = gql`
+  mutation updateComparison($id: ID!, $players: [ID]!) {
+    updateComparison(
+      input: { data: { players: $players }, where: { id: $id } }
+    ) {
+      comparison {
+        id
+      }
+    }
+  }
+`
+export type UpdateComparisonMutationFn = Apollo.MutationFunction<
+  UpdateComparisonMutation,
+  UpdateComparisonMutationVariables
+>
+
+/**
+ * __useUpdateComparisonMutation__
+ *
+ * To run a mutation, you first call `useUpdateComparisonMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateComparisonMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateComparisonMutation, { data, loading, error }] = useUpdateComparisonMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      players: // value for 'players'
+ *   },
+ * });
+ */
+export function useUpdateComparisonMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateComparisonMutation,
+    UpdateComparisonMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    UpdateComparisonMutation,
+    UpdateComparisonMutationVariables
+  >(UpdateComparisonDocument, baseOptions)
+}
+export type UpdateComparisonMutationHookResult = ReturnType<
+  typeof useUpdateComparisonMutation
+>
+export type UpdateComparisonMutationResult = Apollo.MutationResult<UpdateComparisonMutation>
+export type UpdateComparisonMutationOptions = Apollo.BaseMutationOptions<
+  UpdateComparisonMutation,
+  UpdateComparisonMutationVariables
+>
+export const UpdateFavoriteDocument = gql`
+  mutation updateFavorite($id: ID!, $players: [ID]!) {
+    updateFavorite(input: { data: { players: $players }, where: { id: $id } }) {
+      favorite {
+        id
+      }
+    }
+  }
+`
+export type UpdateFavoriteMutationFn = Apollo.MutationFunction<
+  UpdateFavoriteMutation,
+  UpdateFavoriteMutationVariables
+>
+
+/**
+ * __useUpdateFavoriteMutation__
+ *
+ * To run a mutation, you first call `useUpdateFavoriteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFavoriteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFavoriteMutation, { data, loading, error }] = useUpdateFavoriteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      players: // value for 'players'
+ *   },
+ * });
+ */
+export function useUpdateFavoriteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateFavoriteMutation,
+    UpdateFavoriteMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    UpdateFavoriteMutation,
+    UpdateFavoriteMutationVariables
+  >(UpdateFavoriteDocument, baseOptions)
+}
+export type UpdateFavoriteMutationHookResult = ReturnType<
+  typeof useUpdateFavoriteMutation
+>
+export type UpdateFavoriteMutationResult = Apollo.MutationResult<UpdateFavoriteMutation>
+export type UpdateFavoriteMutationOptions = Apollo.BaseMutationOptions<
+  UpdateFavoriteMutation,
+  UpdateFavoriteMutationVariables
 >

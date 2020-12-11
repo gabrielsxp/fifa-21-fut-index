@@ -1,6 +1,9 @@
 import * as S from './styles'
 import Heading from 'components/Heading'
-import { Player as PlayerProps } from 'generated/graphql'
+import {
+  Player as PlayerProps,
+  useCreateComparisonMutation
+} from 'generated/graphql'
 // import SectionBackground from 'components/SectionBackground'
 import { Container } from 'components/Container'
 import React, { useState, useEffect } from 'react'
@@ -14,6 +17,9 @@ import PlayerCard from 'components/PlayerCard'
 import PlayerStat from 'components/PlayerStat'
 import { useWindowSize } from 'utils/helpers'
 import Skeletron from 'components/Skeletron'
+import { Button } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
+import { ReducersProps } from 'redux-local'
 
 export type PlainComparisonProps = {
   title?: string
@@ -21,6 +27,7 @@ export type PlainComparisonProps = {
   players: PlayerProps[]
   scheme?: 'dark' | 'light'
   loading?: boolean
+  allowAddToComparisons?: boolean
 }
 
 type LocalAttributesProps = { label: string; value: number }
@@ -30,12 +37,21 @@ const PlainComparison = ({
   subtitle = 'Players with the same position compared side-by-side',
   players,
   scheme = 'light',
-  loading = false
+  loading = false,
+  allowAddToComparisons = false
 }: PlainComparisonProps) => {
+  const user = useSelector(({ userReducer }: ReducersProps) => userReducer.user)
   const [playersStats, setPlayersStats] = useState<LocalAttributesProps[][]>([])
   const [comparisonMatrix, setComparisonMatrix] = useState<number[][]>([])
   const windowSize = useWindowSize()
-
+  const [
+    createComparisonMutation,
+    { loading: creatingComparison }
+  ] = useCreateComparisonMutation({})
+  const [
+    addedPlayerToComparison,
+    setAddedPlayerToComparison
+  ] = useState<boolean>()
   useEffect(() => {
     if (typeof players !== 'undefined') {
       const attributes: LocalAttributesProps[][] = []
@@ -72,7 +88,22 @@ const PlainComparison = ({
         setComparisonMatrix(comparison)
       }
     }
-  }, [players])
+    if (addedPlayerToComparison) {
+      setTimeout(() => {
+        setAddedPlayerToComparison(false)
+      }, 3000)
+    }
+  }, [addedPlayerToComparison, players])
+
+  const addPlayersToComparison = async () => {
+    await createComparisonMutation({
+      variables: {
+        players: players.map((p: PlayerProps) => p?.id || ''),
+        user: user ? user?.id : ''
+      }
+    })
+    setAddedPlayerToComparison(true)
+  }
 
   return loading && !players ? (
     <S.Wrapper>
@@ -100,6 +131,19 @@ const PlainComparison = ({
         <S.ContentWrapper>
           <S.TopSection>
             {!!title && <Heading color={scheme}>{title}</Heading>}
+            {user && allowAddToComparisons && (
+              <Button
+                my={4}
+                isLoading={creatingComparison}
+                onClick={() => addPlayersToComparison()}
+                colorScheme={addedPlayerToComparison ? 'green' : 'pink'}
+                disabled={addedPlayerToComparison}
+              >
+                {addedPlayerToComparison
+                  ? 'Comparison Created !'
+                  : 'Add to my comparisons'}
+              </Button>
+            )}
             {!!subtitle && (
               <Heading color={scheme} size="small">
                 {subtitle}

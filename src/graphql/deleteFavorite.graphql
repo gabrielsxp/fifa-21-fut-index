@@ -1,0 +1,7 @@
+mutation deleteFavorite ($id: ID!) {
+  deleteFavorite(input: { where: { id: $id } }) {
+    favorite {
+      id
+    }
+	}
+}

@@ -1,0 +1,7 @@
+mutation deleteComparison ($id: ID!) {
+  deleteComparison(input: { where: { id: $id } }) {
+    comparison {
+      id
+    }
+	}
+}

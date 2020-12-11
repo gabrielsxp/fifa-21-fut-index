@@ -1,0 +1,7 @@
+mutation createFavorite($players: [ID]!, $user: ID!) {
+  createFavorite(input: { data: { players: $players, user: $user } }) {
+    favorite {
+      id
+    }
+  }
+}

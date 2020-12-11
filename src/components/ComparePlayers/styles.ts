@@ -160,6 +160,13 @@ export const SectionHeading = styled.h2`
     color: ${theme.colors.white};
     font-size: ${theme.font.sizes.small};
     font-weight: bold;
+    margin-bottom: 1rem;
+    > button {
+      margin: 0 1rem;
+    }
+    > :last-child {
+      margin-right: 0;
+    }
   `}
 `
 export const SimilarPlayersContainer = styled.div`

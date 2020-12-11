@@ -544,7 +544,7 @@ export const getRandomPlayersQuery = (amount: number) => {
 
   return {
     where: {
-      best_position_contains: positions[pos],
+      best_position: positions[pos],
       overall_gte: overall[over].min,
       overall_lte: overall[over].max
     },

@@ -10,13 +10,14 @@ import {
   comparePlayers
 } from 'utils/playerMethods'
 import { useSelector, useDispatch } from 'react-redux'
-import { InitialStateProps } from 'redux-local/reducers/players'
+import { useCreateComparisonMutation } from 'generated/graphql'
 import { AddUser as AddIcon } from '@styled-icons/entypo/AddUser'
 import PlayerStat from 'components/PlayerStat'
 import SearchCompare from 'components/SearchCompare'
 import { Button } from '@chakra-ui/react'
 import { useWindowSize } from 'utils/helpers'
 import { Player as PlayerProps } from 'generated/graphql'
+import { ReducersProps } from 'redux-local'
 
 export type ComparePlayersProps = {
   visible?: boolean
@@ -30,9 +31,11 @@ const ComparePlayers = ({
   controlFunction
 }: ComparePlayersProps) => {
   const dispatch = useDispatch()
-  const players = useSelector((state: InitialStateProps) => state.players)
+  const players = useSelector(
+    ({ playerReducer }: ReducersProps) => playerReducer.players
+  )
   const similarPlayers = useSelector(
-    (state: InitialStateProps) => state.similarPlayers
+    ({ playerReducer }: ReducersProps) => playerReducer.similarPlayers
   )
   const [playersStats, setPlayersStats] = useState<LocalAttributesProps[][]>([])
   const [emptySlots, setEmptySlots] = useState<number>(0)
@@ -40,7 +43,16 @@ const ComparePlayers = ({
     false
   )
   const [comparisonMatrix, setComparisonMatrix] = useState<number[][]>([])
+  const [
+    createComparisonMutation,
+    { loading: creatingComparison }
+  ] = useCreateComparisonMutation({})
+  const [
+    addedPlayerToComparison,
+    setAddedPlayerToComparison
+  ] = useState<boolean>()
   const windowSize = useWindowSize()
+  const user = useSelector(({ userReducer }: ReducersProps) => userReducer.user)
   useEffect(() => {
     const b = document.querySelector('body')
     if (b) {
@@ -50,7 +62,6 @@ const ComparePlayers = ({
         b.style.overflow = 'auto'
       }
     }
-    console.log('players length: ', players.length)
     setEmptySlots(5 - players.length ?? 0)
     const attributes: LocalAttributesProps[][] = []
     players.map((player) => {
@@ -83,10 +94,26 @@ const ComparePlayers = ({
     } else {
       setComparisonMatrix([])
     }
-  }, [visible, players.length, players])
+
+    if (addedPlayerToComparison) {
+      setTimeout(() => {
+        setAddedPlayerToComparison(false)
+      }, 3000)
+    }
+  }, [visible, players.length, players, addedPlayerToComparison])
 
   const controlAddPlayerOnSlot = () => {
     setIsPlayerSearchOpened(true)
+  }
+
+  const addPlayersToComparison = async () => {
+    await createComparisonMutation({
+      variables: {
+        players: players.map((p: PlayerProps) => p?.id || ''),
+        user: user ? user?.id : ''
+      }
+    })
+    setAddedPlayerToComparison(true)
   }
 
   const controlPlayerAdd = (player: PlayerProps) => {
@@ -131,7 +158,6 @@ const ComparePlayers = ({
       }
     })
   }
-
   return (
     <S.Wrapper>
       <SearchCompare
@@ -146,7 +172,21 @@ const ComparePlayers = ({
         </S.IconWrapper>
         <Container>
           <S.SimilarPlayersContainer>
-            <S.SectionHeading>Similar Players</S.SectionHeading>
+            <S.SectionHeading>
+              Similar Players
+              {user && (
+                <Button
+                  isLoading={creatingComparison}
+                  onClick={() => addPlayersToComparison()}
+                  colorScheme={addedPlayerToComparison ? 'green' : 'pink'}
+                  disabled={addedPlayerToComparison}
+                >
+                  {addedPlayerToComparison
+                    ? 'Comparison Created !'
+                    : 'Add to my comparisons'}
+                </Button>
+              )}
+            </S.SectionHeading>
             <S.SimilarPlayersGrid>
               {similarPlayers &&
                 similarPlayers.map((player, index) => {

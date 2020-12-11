@@ -14,7 +14,6 @@ export const Wrapper = styled.div<NavbarProps>`
   top: 0;
   left: 0;
   width: 100%;
-  overflow: hidden;
   ${({ theme, variant }) => css`
     z-index: ${theme.layers.overlay};
     height: ${variant ? '7rem' : '14rem'};
@@ -127,9 +126,7 @@ export const MobileMenu = styled.div`
   align-items: center;
   justify-content: center;
   transform: translateY(-100%);
-  ${({ theme }) => css`
-    background-color: ${theme.colors.white};
-  `}
+  background-color: #011627;
   &.display-mobile-menu {
     transform: translateY(0%);
     opacity: 1;
@@ -147,5 +144,17 @@ export const MobileMenuWrapper = styled.div`
     > a {
       margin-bottom: ${theme.spacings.small};
     }
+  `}
+`
+export const UserProfileWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const UserName = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.colors.white};
+    text-decoration: underline;
+    font-size: ${theme.font.sizes.xsmall};
   `}
 `

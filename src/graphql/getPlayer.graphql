@@ -1,6 +1,7 @@
 query getPlayer ($id: Int!) {
   players (where: { player_id: $id }) {
     player_id
+    id
     photo {
       url
     }

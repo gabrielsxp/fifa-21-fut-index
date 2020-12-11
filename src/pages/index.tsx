@@ -14,9 +14,19 @@ import { getRandomPlayersQuery } from 'utils/playerMethods'
 import { Player as PlayerProps } from 'generated/graphql'
 import { useState, useEffect } from 'react'
 
+type LazyQueryProps = {
+  where: {
+    best_position: string
+    overall_gte: number
+    overall_lte: number
+  }
+  limit: number
+  sort: string
+}
+
 const Home = () => {
   const dispatch = useDispatch()
-  const [lazyExecution, setLazyExecution] = useState(false)
+  const [lazyQuery] = useState<LazyQueryProps>(getRandomPlayersQuery(5))
   const {
     data: topPlayers,
     loading: loadingTopPlayers,
@@ -31,14 +41,11 @@ const Home = () => {
     search,
     { data: comparisonPlayers, loading: loadingComparisonPlayers }
   ] = usePlayerSearchLazyQuery({
-    variables: getRandomPlayersQuery(5)
+    variables: lazyQuery
   })
   useEffect(() => {
-    if (!lazyExecution) {
-      search()
-      setLazyExecution(true)
-    }
-  }, [lazyExecution, search])
+    search()
+  }, [search])
   if (loadingTopPlayers) {
     return <Loading />
   }
@@ -56,6 +63,7 @@ const Home = () => {
     <PlayerTemplate>
       <HomeSearch />
       <PlainComparison
+        allowAddToComparisons
         loading={loadingComparisonPlayers}
         scheme="dark"
         players={comparisonPlayers?.players as PlayerProps[]}

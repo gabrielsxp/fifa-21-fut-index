@@ -67,11 +67,13 @@ const Player = () => {
     <PlayerTemplate>
       {data && data.players && data.players[0] && (
         <>
-          <PlayerHeader player={data.players[0]} />
+          <PlayerHeader player={data.players[0] as PlayerProps} />
           <Container>
             <S.Grid>
-              <PlayerCard {...playerCardDataFormatted(data.players[0])} />
-              <PlayerAttributes player={data.players[0]} />
+              <PlayerCard
+                {...playerCardDataFormatted(data.players[0] as PlayerProps)}
+              />
+              <PlayerAttributes player={data.players[0] as PlayerProps} />
             </S.Grid>
           </Container>
           <SectionBackground>

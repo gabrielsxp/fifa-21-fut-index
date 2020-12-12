@@ -100,7 +100,7 @@ const SignFlow = ({
         } else {
           createFavoriteMutation({
             variables: {
-              user: userId,
+              users_permissions_user: userId,
               players: []
             }
           }).then((res) => {

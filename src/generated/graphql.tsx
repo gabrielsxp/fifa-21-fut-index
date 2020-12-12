@@ -2595,7 +2595,7 @@ export enum CacheControlScope {
 
 export type CreateComparisonMutationVariables = Exact<{
   players: Array<Maybe<Scalars['ID']>>
-  user: Scalars['ID']
+  users_permissions_user: Scalars['ID']
 }>
 
 export type CreateComparisonMutation = { __typename?: 'Mutation' } & {
@@ -2608,7 +2608,7 @@ export type CreateComparisonMutation = { __typename?: 'Mutation' } & {
 
 export type CreateFavoriteMutationVariables = Exact<{
   players: Array<Maybe<Scalars['ID']>>
-  user: Scalars['ID']
+  users_permissions_user: Scalars['ID']
 }>
 
 export type CreateFavoriteMutation = { __typename?: 'Mutation' } & {

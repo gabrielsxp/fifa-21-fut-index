@@ -12,7 +12,7 @@ export const Wrapper = styled.main`
   top: 0;
   left: 0;
   overflow: hidden;
-  backgroud-color: #011627;
+  background-color: #011627;
 `
 export const Text = styled.h1`
   ${({ theme }) => css`

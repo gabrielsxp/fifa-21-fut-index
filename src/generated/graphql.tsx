@@ -81,7 +81,7 @@ export type Comparison = {
   id?: Scalars['ID']
   created_at?: Scalars['DateTime']
   updated_at?: Scalars['DateTime']
-  user?: Maybe<AdminUser>
+  users_permissions_user?: Maybe<UsersPermissionsUser>
   published_at?: Maybe<Scalars['DateTime']>
   players?: Maybe<Array<Maybe<Player>>>
 }
@@ -111,7 +111,9 @@ export type ComparisonGroupBy = {
   id?: Maybe<Array<Maybe<ComparisonConnectionId>>>
   created_at?: Maybe<Array<Maybe<ComparisonConnectionCreated_At>>>
   updated_at?: Maybe<Array<Maybe<ComparisonConnectionUpdated_At>>>
-  user?: Maybe<Array<Maybe<ComparisonConnectionUser>>>
+  users_permissions_user?: Maybe<
+    Array<Maybe<ComparisonConnectionUsers_Permissions_User>>
+  >
   published_at?: Maybe<Array<Maybe<ComparisonConnectionPublished_At>>>
 }
 
@@ -133,8 +135,8 @@ export type ComparisonConnectionUpdated_At = {
   connection?: Maybe<ComparisonConnection>
 }
 
-export type ComparisonConnectionUser = {
-  __typename?: 'ComparisonConnectionUser'
+export type ComparisonConnectionUsers_Permissions_User = {
+  __typename?: 'ComparisonConnectionUsers_permissions_user'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<ComparisonConnection>
 }
@@ -147,7 +149,7 @@ export type ComparisonConnectionPublished_At = {
 
 export type ComparisonInput = {
   players?: Maybe<Array<Maybe<Scalars['ID']>>>
-  user?: Maybe<Scalars['ID']>
+  users_permissions_user?: Maybe<Scalars['ID']>
   published_at?: Maybe<Scalars['DateTime']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
@@ -155,7 +157,7 @@ export type ComparisonInput = {
 
 export type EditComparisonInput = {
   players?: Maybe<Array<Maybe<Scalars['ID']>>>
-  user?: Maybe<Scalars['ID']>
+  users_permissions_user?: Maybe<Scalars['ID']>
   published_at?: Maybe<Scalars['DateTime']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
@@ -194,7 +196,7 @@ export type Favorite = {
   id?: Scalars['ID']
   created_at?: Scalars['DateTime']
   updated_at?: Scalars['DateTime']
-  user?: Maybe<AdminUser>
+  users_permissions_user?: Maybe<UsersPermissionsUser>
   published_at?: Maybe<Scalars['DateTime']>
   players?: Maybe<Array<Maybe<Player>>>
 }
@@ -224,7 +226,9 @@ export type FavoriteGroupBy = {
   id?: Maybe<Array<Maybe<FavoriteConnectionId>>>
   created_at?: Maybe<Array<Maybe<FavoriteConnectionCreated_At>>>
   updated_at?: Maybe<Array<Maybe<FavoriteConnectionUpdated_At>>>
-  user?: Maybe<Array<Maybe<FavoriteConnectionUser>>>
+  users_permissions_user?: Maybe<
+    Array<Maybe<FavoriteConnectionUsers_Permissions_User>>
+  >
   published_at?: Maybe<Array<Maybe<FavoriteConnectionPublished_At>>>
 }
 
@@ -246,8 +250,8 @@ export type FavoriteConnectionUpdated_At = {
   connection?: Maybe<FavoriteConnection>
 }
 
-export type FavoriteConnectionUser = {
-  __typename?: 'FavoriteConnectionUser'
+export type FavoriteConnectionUsers_Permissions_User = {
+  __typename?: 'FavoriteConnectionUsers_permissions_user'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<FavoriteConnection>
 }
@@ -260,7 +264,7 @@ export type FavoriteConnectionPublished_At = {
 
 export type FavoriteInput = {
   players?: Maybe<Array<Maybe<Scalars['ID']>>>
-  user?: Maybe<Scalars['ID']>
+  users_permissions_user?: Maybe<Scalars['ID']>
   published_at?: Maybe<Scalars['DateTime']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
@@ -268,7 +272,7 @@ export type FavoriteInput = {
 
 export type EditFavoriteInput = {
   players?: Maybe<Array<Maybe<Scalars['ID']>>>
-  user?: Maybe<Scalars['ID']>
+  users_permissions_user?: Maybe<Scalars['ID']>
   published_at?: Maybe<Scalars['DateTime']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
@@ -2032,7 +2036,7 @@ export type Morph =
   | ComparisonConnectionId
   | ComparisonConnectionCreated_At
   | ComparisonConnectionUpdated_At
-  | ComparisonConnectionUser
+  | ComparisonConnectionUsers_Permissions_User
   | ComparisonConnectionPublished_At
   | CreateComparisonPayload
   | UpdateComparisonPayload
@@ -2044,7 +2048,7 @@ export type Morph =
   | FavoriteConnectionId
   | FavoriteConnectionCreated_At
   | FavoriteConnectionUpdated_At
-  | FavoriteConnectionUser
+  | FavoriteConnectionUsers_Permissions_User
   | FavoriteConnectionPublished_At
   | CreateFavoritePayload
   | UpdateFavoritePayload
@@ -2664,7 +2668,12 @@ export type GetComparisonsQuery = { __typename?: 'Query' } & {
     Array<
       Maybe<
         { __typename?: 'Comparison' } & Pick<Comparison, 'id'> & {
-            user?: Maybe<{ __typename?: 'AdminUser' } & Pick<AdminUser, 'id'>>
+            users_permissions_user?: Maybe<
+              { __typename?: 'UsersPermissionsUser' } & Pick<
+                UsersPermissionsUser,
+                'id'
+              >
+            >
             players?: Maybe<
               Array<
                 Maybe<
@@ -2767,7 +2776,12 @@ export type GetFavoritesQuery = { __typename?: 'Query' } & {
     Array<
       Maybe<
         { __typename?: 'Favorite' } & Pick<Favorite, 'id'> & {
-            user?: Maybe<{ __typename?: 'AdminUser' } & Pick<AdminUser, 'id'>>
+            users_permissions_user?: Maybe<
+              { __typename?: 'UsersPermissionsUser' } & Pick<
+                UsersPermissionsUser,
+                'id'
+              >
+            >
             players?: Maybe<
               Array<
                 Maybe<
@@ -3233,7 +3247,9 @@ export type UpdateFavoriteMutation = { __typename?: 'Mutation' } & {
 
 export const CreateComparisonDocument = gql`
   mutation createComparison($players: [ID]!, $user: ID!) {
-    createComparison(input: { data: { players: $players, user: $user } }) {
+    createComparison(
+      input: { data: { players: $players, users_permissions_user: $user } }
+    ) {
       comparison {
         id
       }
@@ -3284,7 +3300,9 @@ export type CreateComparisonMutationOptions = Apollo.BaseMutationOptions<
 >
 export const CreateFavoriteDocument = gql`
   mutation createFavorite($players: [ID]!, $user: ID!) {
-    createFavorite(input: { data: { players: $players, user: $user } }) {
+    createFavorite(
+      input: { data: { players: $players, users_permissions_user: $user } }
+    ) {
       favorite {
         id
       }
@@ -3485,11 +3503,9 @@ export const GetComparisonsDocument = gql`
   query getComparisons($sort: String, $limit: Int, $start: Int, $where: JSON) {
     comparisons(sort: $sort, limit: $limit, where: $where, start: $start) {
       id
-      user {
+      users_permissions_user {
         id
       }
-      created_at
-      updated_at
       players {
         id
         player_id
@@ -3617,7 +3633,7 @@ export const GetFavoritesDocument = gql`
   query getFavorites($sort: String, $limit: Int, $start: Int, $where: JSON) {
     favorites(sort: $sort, limit: $limit, where: $where, start: $start) {
       id
-      user {
+      users_permissions_user {
         id
       }
       players {
@@ -3626,8 +3642,6 @@ export const GetFavoritesDocument = gql`
         photo {
           url
         }
-        created_at
-        updated_at
         name
         age
         height

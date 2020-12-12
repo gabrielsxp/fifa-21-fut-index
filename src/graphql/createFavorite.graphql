@@ -1,5 +1,5 @@
 mutation createFavorite($players: [ID]!, $user: ID!) {
-  createFavorite(input: { data: { players: $players, user: $user } }) {
+  createFavorite(input: { data: { players: $players, users_permissions_user: $user } }) {
     favorite {
       id
     }

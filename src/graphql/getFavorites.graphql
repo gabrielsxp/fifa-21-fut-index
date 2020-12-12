@@ -1,7 +1,7 @@
 query getFavorites($sort: String, $limit: Int, $start: Int, $where: JSON) {
   favorites(sort: $sort, limit: $limit, where: $where, start: $start) {
     id
-    user {
+    users_permissions_user {
       id
     }
     players {

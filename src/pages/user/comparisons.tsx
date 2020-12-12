@@ -21,7 +21,7 @@ const Favorites = () => {
   const { data, loading, error } = useGetComparisonsQuery({
     variables: {
       where: {
-        user: {
+        users_permissions_user: {
           id: user?.id
         }
       },

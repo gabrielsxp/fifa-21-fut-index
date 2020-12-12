@@ -1,5 +1,5 @@
 mutation createComparison($players: [ID]!, $user: ID!) {
-  createComparison(input: { data: { players: $players, user: $user } }) {
+  createComparison(input: { data: { players: $players, users_permissions_user: $user } }) {
     comparison {
       id
     }

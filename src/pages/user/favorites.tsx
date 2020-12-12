@@ -9,13 +9,14 @@ import { useSelector } from 'react-redux'
 import { ReducersProps } from 'redux-local'
 import PlayerCard from 'components/PlayerCard'
 import { playerCardDataFormatted } from 'utils/playerMethods'
+import { Favorite as FavoriteProps } from 'generated/graphql'
 
 const Favorites = () => {
   const user = useSelector(({ userReducer }: ReducersProps) => userReducer.user)
   const { data, loading, error } = useGetFavoritesQuery({
     variables: {
       where: {
-        user: {
+        users_permissions_user: {
           id: user?.id
         }
       },
@@ -28,6 +29,16 @@ const Favorites = () => {
   }
   if (error) {
     return <Error />
+  }
+  let favorites: FavoriteProps[] = []
+  let favorite: FavoriteProps = {}
+  if (data?.favorites) {
+    favorites = data?.favorites?.filter(
+      (f) => f && f?.players && f?.players?.length > 0
+    ) as FavoriteProps[]
+    if (favorites.length > 0) {
+      favorite = favorites[0]
+    }
   }
   return (
     <DashboardTemplate>
@@ -46,10 +57,9 @@ const Favorites = () => {
           )}
         </S.NoResultSWrapper>
         <S.Container>
-          {data &&
-            data?.favorites &&
-            data?.favorites[0] &&
-            data?.favorites[0]?.players?.map((player, index) => {
+          {favorite &&
+            favorite.id &&
+            favorite?.players?.map((player, index) => {
               return (
                 <PlayerCard
                   key={index}

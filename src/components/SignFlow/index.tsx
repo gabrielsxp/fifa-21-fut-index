@@ -6,6 +6,7 @@ import * as S from './styles'
 import InputField from 'components/InputField'
 import { Formik, Form } from 'formik'
 import { Button } from '@chakra-ui/react'
+import { Favorite as FavoriteProps } from 'generated/graphql'
 import {
   useLoginMutation,
   useRegisterMutation,
@@ -83,8 +84,16 @@ const SignFlow = ({
             },
             []
           )
+          let f: FavoriteProps[] = []
+          let favorite: FavoriteProps = {}
+          f = favoritesData?.favorites?.filter(
+            (f) => f && f?.players && f?.players?.length > 0
+          ) as FavoriteProps[]
+          if (favorites.length > 0) {
+            favorite = f[0]
+          }
           const objectSet = {
-            id: favoritesData?.favorites[0]?.id,
+            id: favorite?.id ?? f[0]?.id,
             players: Array.from(new Set(favorites))
           }
           localStorage.setItem('favorites', JSON.stringify(objectSet))
@@ -170,10 +179,11 @@ const SignFlow = ({
                         getFavorites({
                           variables: {
                             where: {
-                              user: {
+                              users_permissions_user: {
                                 id: parseInt(userData.id)
                               }
-                            }
+                            },
+                            sort: 'created_at:DESC'
                           }
                         })
                       } catch (error) {
@@ -315,10 +325,11 @@ const SignFlow = ({
                         getFavorites({
                           variables: {
                             where: {
-                              user: {
+                              users_permissions_user: {
                                 id: parseInt(userData.id)
                               }
-                            }
+                            },
+                            sort: 'created_at:DESC'
                           }
                         })
                       } catch (error) {

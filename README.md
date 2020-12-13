@@ -1,59 +1,35 @@
+# Fifa 21 Stats
 
-![React Avançado](https://raw.githubusercontent.com/React-Avancado/boilerplate/master/public/img/logo-gh.svg)
+A project created using Typescript + GraphQL on front-end and Node with Strapi + MySQL on backend.
+The main porpouse of this project is to allow users to see and compare players stats.
 
-This is a [Next.js](https://nextjs.org/) boilerplate to be used in a course called [React Avançado](https://reactavancado.com.br/).
-![ci](https://github.com/React-Avancado/boilerplate/workflows/ci/badge.svg)
-## What is inside?
+<p align="center">
+    <img src="https://github.com/gabrielsxp/fifa-21-fut-index/blob/main/gif.gif" alt="Pay me Dude Landing"></img> 
+</p>
 
-This project uses lot of stuff as:
+## Live Version
+You can access a version of this project live in [Fifa 21 Stats](https://kofastools.com)
 
-- [TypeScript](https://www.typescriptlang.org/)
-- [NextJS](https://nextjs.org/)
-- [Styled Components](https://styled-components.com/)
-- [Jest](https://jestjs.io/)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- [Storybook](https://storybook.js.org/)
-- [Eslint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [Husky](https://github.com/typicode/husky)
+## Features
+- See players main stats
+- See all attributes of each player
+- Dispite the dataset that this project was based on [Kaggle](https://www.kaggle.com/bryanb/fifa-player-stats-database) contains only stats of Carrer Mode players, all base cards of FUT was created as well.
+- Compare players.
+- See all team' players.
+- See the top players of all nations.
+- Search based on player's name.
+- If users is logged in, thay can add a comparison on a comparisons list
+- If users is logged in, thay can add a player on a favorites players list.
+- Individual player's page, showing all attributes and similar players
 
-## Getting Started
+## Front-End
+The front was build in React + NextJS. Data was fetched from server using Apollo Client.
+The Comparison section and some other features was made using Redux
 
-First, run the development server:
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Please make sure to update tests as appropriate.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Commands
-
-- `dev`: runs your application on `localhost:3000`
-- `build`: creates the production build version
-- `start`: starts a simple server with the build production code
-- `lint`: runs the linter in all components and pages
-- `test`: runs jest to test all components and pages
-- `test:watch`: runs jest in watch mode
-- `storybook`: runs storybook on `localhost:6006`
-- `build-storybook`: create the build version of storybook
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# fifa-21-fut-index
+## License
+[MIT](https://choosealicense.com/licenses/mit/)

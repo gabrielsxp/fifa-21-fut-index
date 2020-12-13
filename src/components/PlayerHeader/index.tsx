@@ -108,16 +108,18 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
   }
 
   useEffect(() => {
-    const favorites = localStorage.getItem('favorites')
-    if (favorites) {
-      const f = JSON.parse(favorites)
-      console.log('favorites: ', f, player.id)
-      setFavoriteId(f.id)
-      setFavoritedPlayers(f.players)
-      if (f.players.find((p: number) => p === parseInt(player?.id ?? '-1'))) {
-        setIsFavorited(true)
-      } else {
-        setIsFavorited(false)
+    if (user?.id) {
+      const favorites = localStorage.getItem('favorites')
+      if (favorites) {
+        const f = JSON.parse(favorites)
+        console.log('favorites: ', f, player.id)
+        setFavoriteId(f.id)
+        setFavoritedPlayers(f.players)
+        if (f.players.find((p: number) => p === parseInt(player?.id ?? '-1'))) {
+          setIsFavorited(true)
+        } else {
+          setIsFavorited(false)
+        }
       }
     }
     const chartData: DataChartProps[] = playerRadarChartDataConstructor(
@@ -127,7 +129,7 @@ const PlayerHeader = ({ player }: PlayerHeaderProps) => {
     const { topAttributes } = generatePlayerFields(player)
     setChartData(chartData)
     setPlayerTopAttrs(topAttributes)
-  }, [player])
+  }, [player, user])
 
   const addPlayerToComparison = (player: PlayerProps) => {
     if (

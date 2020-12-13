@@ -93,9 +93,10 @@ const SignFlow = ({
             favorite = f[0]
           }
           const objectSet = {
-            id: favorite?.id ?? f[0]?.id,
+            id: favorite?.id ?? favoritesData?.favorites[0]?.id,
             players: Array.from(new Set(favorites))
           }
+          console.log('object set: ', objectSet)
           localStorage.setItem('favorites', JSON.stringify(objectSet))
         } else {
           console.log('else: ', userId)

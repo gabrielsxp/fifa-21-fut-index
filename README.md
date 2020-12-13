@@ -15,7 +15,7 @@ You can access a version of this project live in [Fifa 21 Stats](https://kofasto
 - See all attributes of each player
 - Dispite the dataset that this project was based on [Kaggle](https://www.kaggle.com/bryanb/fifa-player-stats-database) contains only stats of Carrer Mode players, all base cards of FUT was created as well.
 - Compare players.
-- See all team' players.
+- See all team's players.
 - See the top players of all nations.
 - Search based on player's name.
 - If users is logged in, thay can add a comparison on a comparisons list

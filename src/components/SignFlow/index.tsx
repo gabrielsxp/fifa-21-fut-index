@@ -98,9 +98,10 @@ const SignFlow = ({
           }
           localStorage.setItem('favorites', JSON.stringify(objectSet))
         } else {
+          console.log('else: ', userId)
           createFavoriteMutation({
             variables: {
-              users_permissions_user: userId,
+              user: userId.toString(),
               players: []
             }
           }).then((res) => {

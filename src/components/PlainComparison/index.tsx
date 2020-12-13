@@ -99,7 +99,7 @@ const PlainComparison = ({
     await createComparisonMutation({
       variables: {
         players: players.map((p: PlayerProps) => p?.id || ''),
-        users_permissions_user: user ? user?.id : ''
+        user: user ? user?.id : ''
       }
     })
     setAddedPlayerToComparison(true)
